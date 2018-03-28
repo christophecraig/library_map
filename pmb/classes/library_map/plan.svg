@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="660" height="460" xmlns="http://www.w3.org/2000/svg">
+<text xml:space="preserve" type="text" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" id="36" y="16" x="73.33336" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">Plan de la bibliothèque de Château du Loir</text>
+<g id="1" type="location" location="1" label="Bibliotheque principale">
+    <rect shape="location" height="199.99983" width="616.18994" y="25.23827" x="21.90501" stroke-width="1.5" stroke="#000" fill="#fff"/>
+    <g id="3" type="section" section="1" label="BD">
+      <rect shape="section" height="170.47604" width="179.99984" y="41.42873" x="33.33357" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
+      <rect id="10" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="41.90473" width="103.80943" y="49.04777" x="41.90499" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="11" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="147.61892" width="38.0952" y="52.85729" x="164.76203" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="12" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="99.04753" width="34.28568" y="102.38106" x="41.90499" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+    </g>
+    <g id="4" type="section" section="16" label="Roman policier">
+      <rect shape="section" height="165.71414" width="178.09508" y="44.28587" x="227.61911" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
+      <rect id="13" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="29.52378" width="65.71423" y="53.80967" x="237.14292" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="14" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="30.47616" width="74.28565" y="53.80967" x="320.95237" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="15" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="97.14277" width="38.0952" y="99.52392" x="240.95244" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+    </g>
+    <g id="6" type="section" section="3">
+      <rect shape="section" height="162.857" width="191.4284" y="44.28587" x="427.61894" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
+      <rect id="16" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="28.5714" width="68.57137" y="55.71443" x="438.09512" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="17" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="24.76188" width="74.28565" y="58.57157" x="532.38075" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="18" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="19.99998" width="54.28567" y="181.42861" x="560.95216" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="19" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="66.66661" width="21.90474" y="103.33344" x="588.57118" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="20" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="20.95236" width="97.14277" y="178.57147" x="447.61892" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="21" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="25.71426" width="89.52373" y="119.5239" x="467.61891" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+    </g>
+  </g>
+  <g id="2" type="location" location="2" label="Bibliobus">
+    <rect shape="location" height="166.66652" width="616.18994" y="252.85711" x="22.85739" stroke-width="1.5" stroke="#000" fill="#fff"/>
+    <g id="7" type="section" section="4" >
+      <rect shape="section" height="139.0475" width="176.19032" y="266.19044" x="37.14309" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
+      <rect id="22" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="19.99998" width="69.52375" y="277.619" x="47.61927" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="23" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="80.95231" width="26.66664" y="310.9523" x="47.61927" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="24" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="28.5714" width="110.47609" y="361.42845" x="92.38114" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="25" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="49.52377" width="25.71426" y="301.4285" x="177.14297" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+    </g>
+    <g id="8" type="section" section="3">
+      <rect shape="section" height="138.09512" width="182.85698" y="266.19044" x="224.76197" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
+      <rect id="26" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="106.66657" width="25.71426" y="285.23804" x="237.14292" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="27" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="25.71426" width="91.42849" y="368.09511" x="280.00002" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="28" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="59.99995" width="19.99998" y="295.71422" x="316.19047" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+    </g>
+    <g id="9" type="section" section="6">
+      <rect height="134.2856" width="191.4284" y="269.04758" x="429.5237" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
+      <rect id="29" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="59.99995" width="21.90474" y="280.47614" x="588.57118" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="30" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="41.90473" width="19.99998" y="353.80941" x="590.47594" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="31" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="19.0476" width="61.90471" y="372.85701" x="514.28553" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="32" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="79.04755" width="19.99998" y="316.66658" x="438.09512" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="33" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="18.09522" width="40.95235" y="373.80939" x="464.76176" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="34" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="47.61901" width="19.99998" y="307.14278" x="515.23791" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+    </g>
+  </g>
+
+</svg>
