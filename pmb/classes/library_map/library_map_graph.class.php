@@ -44,14 +44,14 @@ class library_map_graph {
 				$sub_children['children'] = $this->get_all_children($child);
 			}
 			$sub_children['type'] = $child->get_type();
-			$sub_children['graph-id'] = $child->get_graph_id();
+			$sub_children['graph_id'] = $child->get_graph_id();
 			$sub_children['id'] = $child->get_id();
 			$sub_children['parent'] = $child->get_parent()->get_graph_id();
 			$sub_children['label'] = $child->get_label();
 			$sub_children['unique-id'] = $this->counter;
-			$this->counter++;
-			$sub_children['height'] = $child->get_dom_element()->hasAttribute('height') ? $child->get_dom_element()->getAttribute('height'): 0;
-			$sub_children['width'] = $child->get_dom_element()->hasAttribute('width') ? $child->get_dom_element()->getAttribute('width'): 0;
+			$this->counter ++;
+			$sub_children['height'] = $child->get_dom_element()->hasAttribute('height') ? $child->get_dom_element()->getAttribute('height') : 0;
+			$sub_children['width'] = $child->get_dom_element()->hasAttribute('width') ? $child->get_dom_element()->getAttribute('width') : 0;
 			$children[] = $sub_children;
 			
 			switch ($child->get_type()) {
@@ -321,11 +321,47 @@ class library_map_graph {
 		echo $needs_highlight;
 		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
 	}
-	
+
+	private function prepare_for_render($plan){
+		$jsonFromSvg = array (
+				children => array () 
+		);
+		$jsonFromSvg['children'] = $plan->get_all_children($plan->get_root_node());
+		return $this->formatJson($jsonFromSvg);
+	}
+// TODO: Soit dans prepare_for_render soit dans formatJson, il faudra faire l'opération qui consiste à mettre à plat tout les enfants du tableau
+// À voir ici
+	private function formatJson($jsonFragment){
+		foreach ($jsonFragment['children'] as $child) {
+			if ($child['type'] === 'location' || $child['type'] === 'section' || $child['type'] === 'call_number') {
+				$svgMapData[] = $child;
+				if (!isset($child['children'])) {
+					return null;
+				}
+				$this->formatJson($child);
+			}
+		}
+// 		var_dump($svgMapData);
+		return $svgMapData;
+	}
+
 	/**
+	 *
 	 * @param array $plan
 	 */
-	public function render($plan){
-		echo '<svg>'.encoding_normalize::json_encode($plan).'</svg>';
+	public function render($plan = null){
+		$plan = is_null($plan) ? $this : $plan;
+		$render = array(
+				type => 'base',
+				'graph-id' => '0',
+				children => array()
+		);
+		
+		foreach ($this->prepare_for_render($plan) as $item) {
+			$render[] = $item;
+		}
+		
+		return $render;
+
 	}
 }

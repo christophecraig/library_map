@@ -10,7 +10,8 @@ require_once ($class_path . '/library_map/library_map_graph.class.php');
 require_once ($class_path . '/encoding_normalize.class.php');
 
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
-echo $graph->search();
+// echo $graph->search();
+echo $graph->render();
 
 $locations = $graph->get_locations_nodes();
 
@@ -30,69 +31,38 @@ foreach (get_map_form_location() as $loc) {
 }
 echo '</select>';
 
-foreach ($locations as $location) {
-	/**
-	 *
-	 * @var library_map_location $location
-	 */
-	if ($location !== null) {
-		// var_dump($graph->get_locations_nodes());
-	}
-	
-	// if (get_class($location) == 'library_map_location') {
-	// print '
-	// <div class="row">
-	// <div class="colonne3">' .$graph->get_element_by_id($location)->get_name() . ' (' . $graph->get_element_by_id($location)->get_id() . ')' . '</div>
-	// <div class="colonne_suite">' . // . docs_location::get_html_select(array(;
-	// '<select onchange="">';
-	
-	// foreach ( $pmb_sections as $pmb_section ) {
-	// /**
-	// *
-	// * @var library_map_section $sectionPMB
-	// */
-	// echo '<option>' . $pmb_section . '</option>';
-	// }
-	
-	// echo '</select>
-	// </div>';
-	// }
-}
-
-echo '<div id="treeOne" class="colonne2"></div>';
-foreach ($graph->get_all_children($graph->get_root_node()) as $child) {
-// 	var_dump($child);
-	echo 'test';
-}
 ?>
 
+<div id="treeOne" class="colonne2"></div>
+
 <script>
-var svgMapData = [{
-	type: 'Base',
-	"graph-id": 0,
-	label: 'Localisations'
-}]
-var jsonFromSvg = {children: []}
-jsonFromSvg.children = JSON.parse('<?php echo encoding_normalize::json_encode($graph->get_all_children($graph->get_root_node())) ?>');
-formatJson(jsonFromSvg)
+// var svgMapData = [{
+// 	type: 'Base',
+// 	"graph_id": 0,
+// 	label: 'Localisations'
+// }]
+// var jsonFromSvg = {children: []}
+// jsonFromSvg.children = JSON.parse('<?php echo encoding_normalize::json_encode($graph->get_all_children($graph->get_root_node())) ?>');
+// formatJson(jsonFromSvg)
 
-var counter = 0
+// var counter = 0
 
-function formatJson (jsonFragment) {	
-	jsonFragment.children.forEach(child => {
-		if (child.type === 'location' || child.type === 'section' || child.type === 'call_number') {
-			svgMapData.push(child);
-			console.log(child.children)
-			if (!child.hasOwnProperty('children')) {
-				console.log('children : ', child.children, child['graph-id'], counter)
-				return null;
-			}
-			formatJson(child);
-		}
-	})
-	return svgMapData
-}
-console.log('svgMapData : ', svgMapData);
+// function formatJson (jsonFragment) {	
+// 	jsonFragment.children.forEach(child => {
+// 		if (child.type === 'location' || child.type === 'section' || child.type === 'call_number') {
+// 			svgMapData.push(child);
+// 			console.log(child.children)
+// 			if (!child.hasOwnProperty('children')) {
+// 				console.log('children : ', child.children, child['graph_id'], counter)
+// 				return null;
+// 			}
+// 			formatJson(child);
+// 		}
+// 	})
+// 	return svgMapData
+// }
+// console.log('svgMapData : ', svgMapData); // Version Ajax ?
+var svgMapData = JSON.parse('<?php echo encoding_normalize::json_encode($graph->render()); ?>'); // Version exécutée côté serveur
 
 require([
     "dojo/store/Memory",
@@ -103,7 +73,7 @@ require([
         data: svgMapData,
         getChildren: function(object){
             return this.query({
-				parent: object['graph-id']
+				parent: object['graph_id']
             })
     	}
 	});
@@ -111,17 +81,25 @@ require([
     // Create the model
     var myModel = new ObjectStoreModel({
         store: myStore,
-        query: {'graph-id': '0'},
+        query: {'graph_id': '0'},
         labelAttr: 'label'
     });
 
     console.log(myModel.store);
     // Create the Tree.
     var tree = new Tree({
-        model: myModel
+        model: myModel,
+        onClick: function(item) {
+            console.log('item : ', item)
+			document.querySelector(`rect[graph_id="${item["graph_id"]}"]`).style = 'fill: red';
+        }
     });
     
     tree.placeAt(document.getElementById('treeOne'));
     tree.startup()
+    tree.onLoadDeferred.then(function() {
+        console.log('exceptionnel c\'est chargé', tree.model)
+	
+	})
 })
 </script>
