@@ -11,7 +11,6 @@ require_once ($class_path . '/encoding_normalize.class.php');
 
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
 // echo $graph->search();
-echo $graph->render();
 
 $locations = $graph->get_locations_nodes();
 
@@ -24,45 +23,37 @@ function get_map_form_location(){
 	return $location_ids;
 }
 
-// $map_form_section = library_map_section::get_sections_from_pmb_by_loc($location_id);
 echo '<select id="locations-picker">';
 foreach (get_map_form_location() as $loc) {
 	echo '<option value="' . $loc[0] . '">' . $loc[1] . '</option>';
 }
 echo '</select>';
-
+echo gettype($graph->get_all_children($graph->get_root_node()));
 ?>
 
 <div id="treeOne" class="colonne2"></div>
 
 <script>
-// var svgMapData = [{
-// 	type: 'Base',
-// 	"graph_id": 0,
-// 	label: 'Localisations'
-// }]
-// var jsonFromSvg = {children: []}
-// jsonFromSvg.children = JSON.parse('<?php echo encoding_normalize::json_encode($graph->get_all_children($graph->get_root_node())) ?>');
-// formatJson(jsonFromSvg)
 
-// var counter = 0
-
-// function formatJson (jsonFragment) {	
-// 	jsonFragment.children.forEach(child => {
-// 		if (child.type === 'location' || child.type === 'section' || child.type === 'call_number') {
-// 			svgMapData.push(child);
-// 			console.log(child.children)
-// 			if (!child.hasOwnProperty('children')) {
-// 				console.log('children : ', child.children, child['graph_id'], counter)
-// 				return null;
-// 			}
-// 			formatJson(child);
-// 		}
-// 	})
-// 	return svgMapData
+// function formatJson (jsonFragment) {
+// jsonFragment.children.forEach(child => {
+// if (child.type === 'location' || child.type === 'section' || child.type === 'call_number') {
+// svgMapData.push(child);
+// console.log(child.children)
+// if (!child.hasOwnProperty('children')) {
+// console.log('children : ', child.children, child['graph_id'], counter)
+// return null;
 // }
-// console.log('svgMapData : ', svgMapData); // Version Ajax ?
-var svgMapData = JSON.parse('<?php echo encoding_normalize::json_encode($graph->render()); ?>'); // Version exécutée côté serveur
+// formatJson(child);
+// }
+// })
+// return svgMapData
+// }
+
+var svgMapData = JSON.parse('<?php echo encoding_normalize::json_encode($graph->render()); ?>');
+console.log('test');
+
+console.log('svgMapData : ', svgMapData); // Version Ajax ?
 
 require([
     "dojo/store/Memory",

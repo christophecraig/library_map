@@ -19,8 +19,8 @@ class library_map_graph {
 	private $svg;
 	private $root_node;
 	private $nodes_in_document;
-	private $counter = 0;
 	private $toRender = '';
+	private $svg_map_data = array ();
 
 	public function __construct($svg_file){
 		$this->svg = new DOMDocument();
@@ -48,15 +48,17 @@ class library_map_graph {
 			$sub_children['id'] = $child->get_id();
 			$sub_children['parent'] = $child->get_parent()->get_graph_id();
 			$sub_children['label'] = $child->get_label();
-			$sub_children['unique-id'] = $this->counter;
-			$this->counter ++;
 			$sub_children['height'] = $child->get_dom_element()->hasAttribute('height') ? $child->get_dom_element()->getAttribute('height') : 0;
 			$sub_children['width'] = $child->get_dom_element()->hasAttribute('width') ? $child->get_dom_element()->getAttribute('width') : 0;
+			$sub_children['x'] = $child->get_dom_element()->hasAttribute('x') ? $child->get_dom_element()->getAttribute('x') : 0;
+			$sub_children['y'] = $child->get_dom_element()->hasAttribute('y') ? $child->get_dom_element()->getAttribute('y') : 0;
 			$children[] = $sub_children;
+			
 			
 			switch ($child->get_type()) {
 				case 'base' :
 					$sub_children['id'] = 'root';
+					$sub_children['shape'] = $child->get_dom_element()->hasAttribute('shape') ? $child->get_dom_element()->getAttribute('shape') : undefined;
 					break;
 				case 'location' :
 					$sub_children['location_id'] = $child->get_location_id();
@@ -70,6 +72,7 @@ class library_map_graph {
 					break;
 			}
 		}
+		// var_dump($children);
 		return $children;
 	}
 
@@ -80,7 +83,7 @@ class library_map_graph {
 	 * @return boolean
 	 */
 	public function is_graph_node($dom_element){
-		if (($dom_element->nodeType !== 1) || $dom_element->nodeName === 'defs' || $dom_element->nodeName === 'metadata' || $dom_element->nodeName === 'sodipodi:namedview') {
+		if (($dom_element->nodeType !== 1) || $dom_element->nodeName === 'defs' || $dom_element->nodeName === 'metadata' || $dom_element->nodeName === 'sodipodi:namedview' || $dom_element->nodeName === 'text') {
 			// a voir cette condition, rajouter noms de tags autres, ceux-ci viennent d'inkscape. Tester avec tags propres a illustrator ?
 			return false;
 		}
@@ -175,9 +178,7 @@ class library_map_graph {
 				$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
 				break;
 		}
-		
-		var_dump($rect);
-		
+				
 		$rect->setAttribute('class', 'highlight');
 		if (strlen($id) > 3) {
 			$parent_id = substr($id, 0, -2);
@@ -230,7 +231,6 @@ class library_map_graph {
 	public function search($location = null, $section = null, $call_number = null, $status = 1, $zoom_level = 0, $restrict_to_zoom = false){
 		$first_type = '';
 		$instance;
-		// TODO refaire getlocations
 		if ($location !== null) {
 			foreach ($this->get_nodes()['location'] as $loc) {
 				if ($loc->get_location_id() == $location) {
@@ -241,10 +241,6 @@ class library_map_graph {
 			if (!$loc_exists)
 				return "Cette localisation n'est pas représentée sur le plan !";
 		}
-		
-		// if ($section !== null && (!in_array($section, $this->get_sections_from_pmb()))) {
-		// return "Cette section n'est pas représentée sur le plan ! ";
-		// }
 		
 		if ($section !== null && (!in_array($section, $this->get_sections_nodes($id)))) {
 			return "Cette section n'est pas représentée sur le plan";
@@ -322,46 +318,46 @@ class library_map_graph {
 		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
 	}
 
-	private function prepare_for_render($plan){
-		$jsonFromSvg = array (
-				children => array () 
-		);
-		$jsonFromSvg['children'] = $plan->get_all_children($plan->get_root_node());
-		return $this->formatJson($jsonFromSvg);
-	}
-// TODO: Soit dans prepare_for_render soit dans formatJson, il faudra faire l'opération qui consiste à mettre à plat tout les enfants du tableau
-// À voir ici
-	private function formatJson($jsonFragment){
-		foreach ($jsonFragment['children'] as $child) {
+	// TODO: Soit dans prepare_for_render soit dans format_json, il faudra faire l'opération qui consiste à mettre à plat tout les enfants du tableau
+	// À voir ici
+	public function format_json($json_fragment, $counter = 0){
+		foreach ($json_fragment['children'] as $child) {
+			$counter ++;
 			if ($child['type'] === 'location' || $child['type'] === 'section' || $child['type'] === 'call_number') {
-				$svgMapData[] = $child;
+				$this->svg_map_data[] = $child;
 				if (!isset($child['children'])) {
-					return null;
+					continue;
 				}
-				$this->formatJson($child);
+				$this->format_json($child);
 			}
 		}
-// 		var_dump($svgMapData);
-		return $svgMapData;
+		
+		// var_dump($this->svg_map_data);
+		return $this->svg_map_data;
 	}
-
+	
 	/**
 	 *
 	 * @param array $plan
 	 */
-	public function render($plan = null){
-		$plan = is_null($plan) ? $this : $plan;
-		$render = array(
+	public function render(){
+		$this->svg_map_data[] = array (
 				type => 'base',
-				'graph-id' => '0',
-				children => array()
+				label => 'Localisations',
+				'graph_id' => '0'
 		);
-		
-		foreach ($this->prepare_for_render($plan) as $item) {
-			$render[] = $item;
-		}
-		
-		return $render;
-
+		// $plan = is_null($plan) ? $this : $plan;
+		$all_children = array (
+				children => $this->get_all_children($this->get_root_node()) 
+		);
+		// $render = array (
+		// array (
+		// type => 'base',
+		// 'graph-id' => '0',
+		// label => 'Localisations'
+		// )
+		// );
+		// var_dump($this->format_json($all_children));
+		return $this->format_json($all_children);
 	}
 }
