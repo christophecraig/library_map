@@ -10,8 +10,7 @@ require_once ($class_path . '/library_map/library_map_graph.class.php');
 require_once ($class_path . '/encoding_normalize.class.php');
 
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
-// echo $graph->search();
-
+echo $graph->search();
 $locations = $graph->get_locations_nodes();
 
 // locations du plan
@@ -19,7 +18,7 @@ function get_map_form_location(){
 	$location_ids = array ();
 	foreach (library_map_location::get_locations_from_pmb() as $loc_id) {
 		$location_ids[] = $loc_id;
-	}
+    }
 	return $location_ids;
 }
 
@@ -28,6 +27,7 @@ foreach (get_map_form_location() as $loc) {
 	echo '<option value="' . $loc[0] . '">' . $loc[1] . '</option>';
 }
 echo '</select>';
+var_dump($graph->get_all_children($graph->get_root_node()));
 echo gettype($graph->get_all_children($graph->get_root_node()));
 ?>
 
