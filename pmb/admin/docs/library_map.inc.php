@@ -12,6 +12,7 @@ require_once ($class_path . '/encoding_normalize.class.php');
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
 echo $graph->search();
 $locations = $graph->get_locations_nodes();
+var_dump('true');
 
 // locations du plan
 function get_map_form_location(){

@@ -9754,4 +9754,240 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 <entry code="parperso_field_classement">Classement du champ</entry>
 <entry code="save_and_continue">Enregistrer et continuer</entry>
 <entry code="save_and_continue_concept">Enregistrer et créer un concept</entry>
+<entry code="search_universe_description">Description</entry>
+<entry code="search_universe_opac_views">Vues OPAC</entry>
+<entry code="parperso_option_duration_begin">Entre</entry>
+<entry code="parperso_option_duration_end">et</entry>
+<entry code="search_segment_add_set">Créer / modifier jeu de données</entry>
+<entry code="search_segment_set">Jeu de données</entry>
+<entry code="search_universes_empty_label">Le libellé du segment est vide. Merci de le renseigner.</entry>
+<entry js="search_universes" code="search_segment_set_not_save">Problème lors de l'enregistrement du jeu de données</entry>
+<entry js="search_universes" code="search_segment_confirm_delete">Êtes-vous sûr(e) de vouloir supprimer ce segment de recherche ?</entry>
+<entry js="search_universes" code="search_universe_confirm_delete">Êtes-vous sûr(e) de vouloir supprimer cet univers de recherche ?</entry>
+<entry js="search_universes" code="search_universes_empty_label">Veuillez renseigner le libellé.</entry>
+<entry js="search_universes" code="search_segment_advanced_search">Recherche avancée</entry>
+<entry code="index_concept_label_autopostage">Concepts autopostés</entry>
+<entry js="search_universes" code="search_segment_facet">Facette</entry>
+<entry js="search_universes" code="search_segment_search_perso">Recherche prédéfinie</entry>
+<entry js="search_universes" code="search_segment_facet_not_save">Problème lors de l'enregistrement de la facette</entry>
+<entry code="mails_waiting_attachments">Répertoire à utiliser pour le stockage des pièces jointes</entry>
+<entry code="mails_waiting_max_by_send">Nombre de mails maximum par envoi</entry>
+<entry code="list_ui_search">Filtres / Tri</entry>
+<entry code="search_persopac_type">Type</entry>
+
+<entry code="associated_campaign">Générer une campagne de mails</entry>
+<entry code="campaign_type_mailing">Mailing</entry>
+<entry code="campaigns_descriptors">Descripteurs</entry>
+<entry code="campaigns_tags">Tags / Mots-clés</entry>
+<entry code="facettes_records">Notices</entry>
+<entry code="facettes_external_records">Notices externes</entry>
+<entry code="facettes_authorities">Autorités</entry>
+<entry code="facette_type">Type</entry>
+<entry code="authors">Auteurs</entry>
+<entry code="categories">Catégories</entry>
+<entry code="publishers">Editeurs</entry>
+<entry code="collections">Collections</entry>
+<entry code="subcollections">Sous-collections</entry>
+<entry code="series">Titres de série</entry>
+<entry code="titres_uniformes">Titres uniformes</entry>
+<entry code="indexint">Index. décimales</entry>
+<entry code="caddie_de_AUTHPERSO">Panier d'autorités personnalisées</entry>
+<entry code="admin_opac_contact_form_parameter_permalink">Permalink OPAC :</entry>
+
+<entry code="nettoyage_operations_reindex">Réindexer</entry>
+<entry code="nettoyage_operations_delete">Supprimer</entry>
+<entry code="nettoyage_operations_clean">Nettoyer</entry>
+<entry code="nettoyage_operations_generate">Générer</entry>
+<entry code="nettoyage_operations_empty">Vider</entry>
+<entry code="nettoyage_operations_password">Mot de passe</entry>
+<entry code="camera_photo_fail_uploaded">Echec de la sauvegarde :</entry>
+
+<entry code="z3950_notice_id">Identifiant de notice</entry>
+<entry code="bannette_tpl_unsubscribe">Se désinscrire</entry>
+<entry code="cms_cache_date">Date de dernière génération</entry>
+<entry code="connecteurs_search_simple"><![CDATA[<a href='%s'>faire une recherche simple</a>]]></entry>
+<entry code="admin_menu_pnb">Prêts numériques</entry>
+<entry code="admin_menu_pnb_param">Paramétrage</entry>
+<entry code="admin_pnb_param_title">Paramétrage du PNB</entry>
+<entry code="admin_pnb_param_login">Code d'accès</entry>
+<entry code="admin_pnb_param_password">Mot de passe</entry>
+<entry code="admin_pnb_param_ftp_login">Code d'accès FTP</entry>
+<entry code="admin_pnb_param_ftp_password">Mot de passe FTP</entry>
+<entry code="admin_pnb_param_ftp_server">Adresse du serveur</entry>
+<entry code="categories_catal_title">Catégories</entry>
+<entry code="numeric_record">Notice numérique</entry>
+<entry code="persofield_url_linktarget_default_checked">Coché par défaut</entry>
+<entry code="planificateur_catalog_pnb">PNB</entry>
+<entry code="admin_menu_pnb_quotas_simultaneous_loans">Quotas de prêt</entry>
+<entry code="admin_menu_pnb_quotas_prolongation">Quotas de prolongation</entry>
+<entry code="bannette_tpl_insert_nb_abonnes">Nombre d'abonnés</entry>
+<entry code="edit_menu_pnb">Prêts numériques</entry>
+<entry code="edit_menu_pnb_orders">Commandes</entry>
+<entry code="edit_pnb_order_id">Numéro de commande</entry>
+<entry code="edit_pnb_order_line_id">Ligne de commande</entry>
+<entry code="edit_pnb_order_notice">Notice</entry>
+<entry code="edit_pnb_order_loan_max_duration">Durée maximum</entry>
+<entry code="edit_pnb_order_nb_loans">Nombre de prêts</entry>
+<entry code="edit_pnb_order_nb_simultaneous_loans">Nombre de prêts simultanés</entry>
+<entry code="edit_pnb_order_nb_consult_in_situ">Nombre de consultations sur place</entry>
+<entry code="edit_pnb_order_nb_consult_ex_situ">Nombre de consultations à distance</entry>
+<entry code="edit_pnb_order_offer_date">Date d'acquisition</entry>
+<entry code="edit_pnb_order_offer_duration">Durée</entry>
+<entry code="pnb_loan_failed">Le prêt a échoué</entry>
+<entry code="pnb_loan_succeed">Document emprunté avec succès</entry>
+<entry code="admin_pnb_param_dilicom_url">URL du web service Dilicom</entry>
+<entry code="admin_pnb_param_webservice_url">URL du web service pour la gestion des prêts OPAC</entry>
+<entry code="edit_pnb_order_nb_remaining_loans">Nombre de prêts restants</entry>
+<entry code="edit_pnb_order_offer_date_end">Fin de validité</entry>
+<entry code="notice_is_numeric_search">Numérique</entry>
+<entry code="dsi_confirm_delete_equation_used_in_private_bannette">Cette équation est utilisée par défaut dans les bannettes privées. Confirmez-vous la suppression ?</entry>
+<entry code="combine_extended_search">Recherches multi-critèresé</entry>
+<entry code="admin_contribution_area_quick_param">Paramétrage rapide</entry>
+<entry code="admin_contribution_area_quick_param_in_progress">Paramétrage rapide en cours...</entry>
+<entry code="caddie_menu_action_edit_panier">Modifier le panier</entry>
+<entry code="empr_caddie_menu_action_edit_panier">Modifier le panier</entry>
+<entry code="procs_options_text_max_help"><![CDATA[(Texte <= 255 ; Texte large <= 65 535 ; Entier <= 11)]]></entry>
+<entry js="docnum" code="docnum_edit_title">Édition d'un document numérique</entry>
+<entry js="admin_parameters" code="admin_param_edit_popup_title">Édition d'un paramètre</entry>
+<entry js="admin_parameters" code="admin_param_edit_quick_filter">Filtre rapide</entry>
+<entry js="admin_parameters" code="admin_param_edit_input_placeholder">Entrez votre recherche</entry>
+<entry code="admin_menu_pnb_drm_parameters">DRM</entry>
+<entry code="admin_pnb_drm_parameters_title">Liste des DRM</entry>
+<entry code="admin_pnb_drm_parameters_name">Nom</entry>
+<entry code="admin_pnb_drm_parameters_prolonge">Prolongeable</entry>
+<entry code="admin_pnb_drm_parameters_loan_duration">Durée de prêt en jours</entry>
+<entry code="admin_pnb_drm_acs">ACS (Adobe)</entry>
+<entry code="admin_pnb_drm_lcp">LCP</entry>
+<entry code="admin_pnb_drm_sony">SONY</entry>
+<entry code="pnb_ui_form_title">Commandes PNB</entry>
+<entry js="edition_pnb" code="pnb_contact_link_title">Contacter Dilicom concernant les commandes sélectionnées</entry>
+<entry js="edition_pnb" code="pnb_please_select_command">Veuillez sélectionner une commande</entry>
+<entry js="edition_pnb" code="pnb_contact_command_ref">Référence de la commande</entry>
+<entry js="edition_pnb" code="pnb_contact_command_create_date">Commande créée le</entry>
+<entry js="edition_pnb" code="pnb_contact_command_line_id">Identifiant de la ligne de commande</entry>
+<entry js="edition_pnb" code="pnb_contact_gln">GLN de la collectivité</entry>
+<entry js="edition_pnb" code="pnb_contact_mail_title">Problèmes avec les commandes suivantes</entry>
+<entry code="alert_pnb">Prêts numériques</entry>
+<entry code="alert_pnb_end">Expiration</entry>
+<entry code="alert_pnb_saturation">Saturation</entry>
+<entry code="admin_pnb_alert">Gestion des alertes</entry>
+<entry code="pnb_alert_end_offers">Nombre de jours avant expiration des commandes</entry>
+<entry code="pnb_alert_staturation_offers">Nombre d'exemplaires restants avant saturation de prêt</entry>
+<entry code="pnb_edit_end_offers_filter">Commandes en expiration</entry>
+<entry code="pnb_ui_form_title">Liste des commandes</entry>
+<entry code="pnb_edit_staturation_offers_filter">Commandes en saturation</entry>
+<entry code="short_january">jan</entry>
+<entry code="short_february">fév</entry>
+<entry code="short_march">mars</entry>
+<entry code="short_april">avr</entry>
+<entry code="short_may">mai</entry>
+<entry code="short_june">juin</entry>
+<entry code="short_july">juil</entry>
+<entry code="short_august">août</entry>
+<entry code="short_september">sept</entry>
+<entry code="short_october">oct</entry>
+<entry code="short_november">nov</entry>
+<entry code="short_december">déc</entry>
+<entry code="print_size_selected_elements">Les notices sélectionnées</entry>
+<entry code="print_size_selected_elements_authorities">Les autorités sélectionnées</entry>
+<entry code="download_size_selected_elements">Les documents numériques sélectionnés</entry>
+<entry code="circ_pret_digital_expl">Le prêt de documents numériques n'est possible que depuis l'OPAC</entry>
+<entry code="circ_retour_digital_expl">Seul l'emprunteur peut retourner un exemplaire numérique</entry>
+<entry code="search_record_modifier">Modificateur de la notice</entry>
+<entry code="deflt_notice_statut_analysis">Statut de notice par défaut en création d'article</entry>
+<entry code="deflt_notice_statut_analysis_parent">Notice de bulletin</entry>
+<entry code="procs_options_column_name">Utilisé comme nom de champ</entry>
+
+<entry code="files">Gestion des fichiers</entry>
+<entry code="subst_files_management">Fichier substituable</entry>
+<entry code="file_source_code">Code source</entry>
+<entry code="file_setting">Fichier</entry>
+<entry code="misc_file_code">Code</entry>
+<entry code="misc_file_label">Libellé</entry>
+<entry code="misc_file_comment">Description</entry>
+<entry code="misc_file_visible">Visible ?</entry>
+<entry js="misc" code="misc_subst_file_cancel">Annuler</entry>
+<entry js="misc" code="misc_subst_file_save">Enregistrer</entry>
+<entry js="misc" code="misc_subst_file_save_success">Confirmation de la sauvegarde du fichier :</entry>
+<entry js="misc" code="misc_subst_file_save_error">Impossible de sauvegarder le fichier :</entry>
+<entry js="misc" code="misc_subst_file_delete">Supprimer</entry>
+<entry js="misc" code="misc_subst_file_confirm_delete">Souhaitez-vous vraiment supprimer le fichier subst ?</entry>
+<entry js="misc" code="misc_subst_file_delete_success">Confirmation de la suppression du fichier :</entry>
+<entry js="misc" code="misc_subst_file_delete_error">Impossible de supprimer le fichier :</entry>
+<entry code="substituate">Substituer</entry>
+<entry code="search_segment_default">Segment par défaut</entry>
+<entry code="deflt3type_produit">Type de produit par défaut</entry>
+<entry code="acquisition_act_typ_err">Vous n'avez pas défini de type de produit !</entry>
+<entry code="search_extended_record_qualified_author">Auteur qualifié de la notice</entry>
+<entry code="dsi_docwatch_datasource_monitoring_website_xdiff">NB : Si vous ne souhaitez pas utiliser les expressions XPath (optionnelles), il vous faut activer l'extension PHP "xdiff".</entry>
+<entry code="dsi_docwatch_datasource_monitoring_website_xdiff_only">Ce mode n'est applicable qu'avec l'extension PHP "xdiff". Cette dernière analyse la page zone par zone.</entry>
+<entry code="caddie_edition_advanced_mode">Mode avancé</entry>
+<entry code="list_caddie_edition_show_list">Afficher la liste</entry>
+<entry code="list_ui_initialization">Réinitialiser</entry>
+<entry code="caddie_menu_action_supprpanier">Vider le panier</entry>
+<entry code="deflt_serials_docs_type">Support par défaut en bulletinage</entry>
+<entry code="connecteurs_delete_source_confirm">La suppression de cette source entraînera la suppression des notices synchronisées, voulez-vous continuer ?</entry>
+<entry code="admin_contribution_area_form_advanced">Avancé</entry>
+<entry code="admin_contribution_area_form_comment">Commentaire</entry>
+<entry code="admin_contribution_area_form_tooltip">Info-bulle</entry>
+<entry code="admin_contribution_area_form_placeholder">Placeholder</entry>
+<entry code="abonnements_to_renew">À renouveler</entry>
+<entry code="abonnements_outdated">Dépassés</entry>
+<entry code="entity_currently_locked_title">Entité verrouillée</entry>
+<entry code="entity_currently_locked">Cette entité est actuellement verrouillée en édition par "!!entity_locked_username!!".</entry>
+<entry code="entity_currently_locked_unlock_question">Voulez-vous forcer l'édition ?</entry>
+<entry code="locked_entity_save_error">Une erreur a eu lieu à l'enregistrement. L'entité est verrouillée par un autre utilisateur.</entry>
+<entry code="entity_unlocked">L'entité n'est plus verrouillée.</entry>
+<entry code="docnum_statut_thumbnail_visible_opac_override">Ne pas tenir compte des droits pour l'affichage de la vignette</entry>
+<entry code="admin_contribution_area_computed">Champs calculés</entry>
+<entry js="contribution_area" code="contribution_area_computed_fields_used">Champs à utiliser</entry>
+<entry js="contribution_area" code="contribution_area_computed_fields_generated">Champs calculés</entry>
+<entry js="contribution_area" code="contribution_area_computed_fields_save">Sauvegarder</entry>
+<entry js="contribution_area" code="contribution_area_computed_fields_confirm">En changeant de champ, vous allez perdre les modifications en cours.</entry>
+<entry js="contribution_area" code="contribution_area_computed_fields_delete">Supprimer</entry>
+<entry code="admin_vignette_menu">Vignettes</entry>
+<entry code="admin_vignette_menu_record">Notices</entry>
+<entry code="admin_vignette_menu_author">Auteurs</entry>
+<entry code="admin_vignette_menu_categ">Catégories</entry>
+<entry code="admin_vignette_menu_publisher">Editeurs</entry>
+<entry code="admin_vignette_menu_collection">Collections</entry>
+<entry code="admin_vignette_menu_subcollection">Sous-collections</entry>
+<entry code="admin_vignette_menu_serie">Séries</entry>
+<entry code="admin_vignette_menu_tu">Titres uniformes</entry>
+<entry code="admin_vignette_menu_indexint">index. décimales</entry>
+<entry code="admin_vignette_sources">Sources</entry>
+<entry code="author_isni">ISNI</entry>
+<entry code="param_chat_activate">Activation du chat</entry>
+<entry js="chat" code="chat_goup_edition">Gestion de groupe</entry>
+<entry js="chat" code="chat_goup_name">Nom du groupe</entry>
+<entry js="chat" code="chat_goup_save">Sauvegarder</entry>
+<entry js="chat" code="chat_notification_filter">Montrer seulement les nouveaux messages</entry>
+<entry js="chat" code="chat_connected_filter">Montrer seulement les utilisateurs en ligne</entry>
+<entry js="chat" code="chat_notification_filter_label">Messages</entry>
+<entry js="chat" code="chat_connected_filter_label">En ligne</entry>
+<entry js="chat" code="chat_add_group">Ajouter un groupe</entry>
+<entry js="chat" code="chat_edit_group">Editer le groupe</entry>
+<entry js="chat" code="chat_edit_group_empty_name">Un nom du groupe est obligatoire</entry>
+<entry js="chat" code="chat_goup_delete">Supprimer</entry>
+<entry js="chat" code="chat_goup_confirm_delete">Etes-vous sûr de vouloir supprimer ce groupe ?</entry>
+<entry js="chat" code="chat_notification">Nouveau message</entry>
+<entry js="chat" code="chat_connected">Connecté</entry>
+<entry js="chat" code="chat_send_message">Envoyer le message</entry>
+<entry js="chat" code="chat_delete_message">Supprimer le message</entry>
+<entry js="chat" code="chat_open_discussion">Ouvrir la discussion</entry>
+<entry js="chat" code="chat_close_discussion">Fermer la discussion</entry>
+<entry code="in_catalog">Notice importée</entry>
+<entry code="thesaurus_printing_broad_term_code">TG</entry>
+<entry code="thesaurus_printing_narrower_term_code">TS</entry>
+<entry code="thesaurus_printing_related_term_code">TA</entry>
+<entry code="thesaurus_printing_use_for_code">EP</entry>
+<entry code="thesaurus_printing_use_code">EM</entry>
+<entry code="thesaurus_printing_scope_note_code">NA</entry>
+<entry code="thesaurus_printing_public_comment_code">PU</entry>
+
+<entry js="selector" code="selector_tab_navigate">Navigation</entry>
+<entry code="selector_tab_navigate">Navigation</entry>
+<entry code="pagin_navig_concept">Voir la suite</entry>
+<entry code="list_ui_save_order">Enregistrer le tri</entry>
+<entry code="admin_contribution_area_form_list_values">Valeurs à proposer dans la liste</entry>
 </XMLlist>
