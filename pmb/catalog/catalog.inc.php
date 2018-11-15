@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: catalog.inc.php,v 1.44 2017-09-13 12:38:33 tsamson Exp $
+// $Id: catalog.inc.php,v 1.45 2018-09-05 15:27:30 tsamson Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php")) die("no access");
 
@@ -158,11 +158,12 @@ switch($categ) {
 	case 'contribution_area':
 		include("./catalog/contribution_area/main.inc.php");
 		break;
-		
+	case 'rdf_conversion':
+		include("./catalog/notices/rdf_conversion.inc.php");
+		break;
 	case 'manage_localisations' :
-	    include("./catalog/localisation_expl/main.inc.php");
-	    break;
-	    
+		include("./catalog/localisation_expl/main.inc.php");
+		break;
 	default:
 		include('./catalog/notices/search/main.inc.php');
 		break;

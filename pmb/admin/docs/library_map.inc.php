@@ -11,7 +11,6 @@ require_once $class_path.'/library_map/library_structure_data.class.php';
 
 // Chemin à changer pour le svg
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
-<<<<<<< HEAD
 $structures = new library_structure_data();
 
 echo "
@@ -43,26 +42,4 @@ echo "
 // ". $graph->search() ."
 // </div>
 // </div>";
-=======
-echo $graph->search();
-$locations = $graph->get_locations_nodes();
-var_dump('true');
-
-// locations du plan
-function get_map_form_location(){
-	$location_ids = array ();
-	foreach (library_map_location::get_locations_from_pmb() as $loc_id) {
-		$location_ids[] = $loc_id;
-    }
-	return $location_ids;
-}
-
-echo '<select id="locations-picker">';
-foreach (get_map_form_location() as $loc) {
-	echo '<option value="' . $loc[0] . '">' . $loc[1] . '</option>';
-}
-echo '</select>';
-var_dump($graph->get_all_children($graph->get_root_node()));
-echo gettype($graph->get_all_children($graph->get_root_node()));
->>>>>>> 4b4ef1e37324098d5213645f221692fc874b687f
 ?>
