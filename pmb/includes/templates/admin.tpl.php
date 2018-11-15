@@ -3389,15 +3389,15 @@ $admin_menu_contact_form = "
 </div>";
 
 
-$admin_menu_exploded_search ="
-<h1>".$msg["admin_menu_exploded_search"]."</h1>
-<div class=\"hmenu\">
-	<span".ongletSelect("categ=exploded_search&sub=universe").">
-		<a title='".$msg["admin_exploded_search_universe"]."' href='./admin.php?categ=exploded_search&sub=universe'>
-			".$msg["admin_exploded_search_universe"]."
-		</a>
-	</span>
-</div>";
+// $admin_menu_exploded_search ="
+// <h1>".$msg["admin_menu_exploded_search"]."</h1>
+// <div class=\"hmenu\">
+// 	<span".ongletSelect("categ=exploded_search&sub=universe").">
+// 		<a title='".$msg["admin_exploded_search_universe"]."' href='./admin.php?categ=exploded_search&sub=universe'>
+// 			".$msg["admin_exploded_search_universe"]."
+// 		</a>
+// 	</span>
+// </div>";
 		
 
 ?>
