@@ -42,7 +42,7 @@ $admin_menu_new = "
 	<li><a href='./admin.php?categ=contact_form'>".$msg["admin_opac_contact_form"]."</a></li>
 	<li><a href='./admin.php?categ=opac&sub=maintenance'>".$msg["admin_opac_maintenance"]."</a></li>
 ";
-	if($opac_exploded_search_activate){
+	if(isset($opac_exploded_search_activate)){
 		$admin_menu_new.="<li><a href='./admin.php?categ=exploded_search'>".$msg['admin_menu_exploded_search']."</a></li>";
 	}
 

@@ -5,7 +5,7 @@
 ****************************************************************************************
 © 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 ****************************************************************************************
-$Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
+$Id: fr_FR.xml,v 1.1846 2018-10-12 15:12:42 apetithomme Exp $ -->
 
 <XMLlist>
 <entry code="demo">Démo</entry>
@@ -1905,7 +1905,7 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 <entry code="audit_col_nom">Nom</entry>
 <entry code="email">E-mail</entry>
 <entry code="alert_resa_user_mail">Alerter par mail des nouvelles réservations OPAC ?</entry>
-<entry code="mail_obj_resa_validee">Réservation validée</entry>
+<entry code="mail_obj_resa_validee">Réservation validée %s</entry>
 <entry code="z3950_zmsg_wait">En attente des recherches des bases de données (max 45 sec.)</entry>
 <entry code="z3950_zmsg_endw">Recherches finies (!!time!! sec), rapatriement des résultats</entry>
 <entry code="z3950_zmsg_show">Fini (Temps total !!time!! sec)... Vous pouvez accéder aux résultats!</entry>
@@ -2772,9 +2772,9 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 <entry code="avis_bt_selectionner">Tout sélectionner</entry>
 <entry code="tag_bt_supprimer">Supprimer</entry>
 <entry code="tag_bt_valider">Valider</entry>
-<entry code="tag_bt_selectionner">Sélectionner</entry>
+<entry code="tag_bt_selectionner">Tout sélectionner</entry>
 <entry code="tag_titre_form">Validation et suppression des tags</entry>
-<entry code="tag_deja_tags">Mots clefs actuels de cette notice:</entry>
+<entry code="tag_deja_tags">Mots-clés actuels de cette notice:</entry>
 <entry code="xmlta_doctype">Type de notice par défaut en création de monographie</entry>
 <entry code="first_page">Première page</entry>
 <entry code="last_page">Dernière page</entry>
@@ -6235,7 +6235,7 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 <entry code="ordinal_s_4">quatrième</entry>
 <entry code="facette_order">Ordre</entry>
 <entry code="facette_order_bt">Trier par Nom</entry>
-<entry code="facette_limit_plus_form">Nombre d'items affichés avant le plus (0 correspond à tous les résultats)</entry>
+<entry code="facette_limit_plus_form">Nombre d'items affichés avant le plus (0 correspond à tous les résultats / -1 pour aucun)</entry>
 <entry code="facette_isbd">Isbd</entry>
 <entry code="search_explnum">Exemplaire numérique</entry>
 <entry code="extexplnum_name">Titre</entry>
@@ -9408,27 +9408,27 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 <entry code="empr_allow_contribution">Autoriser l'abonné à contribuer</entry>
 <entry code="empr_short_no_allow_contribution">Contributions</entry>
 <entry code="planificateur_catalog_scheduler_caddie">Gestion des paniers</entry>
-<entry code="admin_menu_exploded_search">Recherche segmentée</entry>
-<entry code="admin_exploded_search_universe">Univers</entry>
+<entry code="admin_menu_search_universes">Univers de recherche</entry>
+<entry code="admin_search_universe">Univers</entry>
 <entry code="no_universe_defined">Aucun univers de recherche segmentée n'est paramétré</entry>
-<entry code="exploded_search_universe_create">Création d'un nouvel univers de recherche</entry>
-<entry code="exploded_search_universe_edit">Édition d'un univers de recherche</entry>
-<entry code="exploded_search_universe_label">Nom de l'univers</entry>
-<entry code="exploded_search_universe_segments">Segmentations</entry>
-<entry code="exploded_search_universe_views">Vues</entry>
-<entry code="admin_exploded_search_segment">Segment</entry>
-<entry code="exploded_search_segment_create">Création d'un nouvel segment de recherche</entry>
-<entry code="exploded_search_segment_edit">Édition d'un segment de recherche</entry>
-<entry code="exploded_search_segment_label">Nom du segment</entry>
-<entry code="exploded_search_segment_icon">Icone</entry>
-<entry code="exploded_search_segment_description">Description</entry>
-<entry code="exploded_search_segment_type">Type</entry>
-<entry code="exploded_search_segment_fields_set">Multicritère de filtrage</entry>
-<entry code="exploded_search_segment_save_equation">Mémoriser dans le segment de recherche</entry>
-<entry code="exploded_search_segment_confirm_delete">Etes-vous sûr de vouloir supprimer ce segment ?</entry>
-<entry code="exploded_search_universe_confirm_delete">Etes-vous sûr de vouloir supprimer cet univers ?</entry>
-<entry code="exploded_search_segment_predefined_searches">Recherches prédéfinies</entry>
-<entry code="exploded_search_segment_predefined_searches_undefined">Aucune recherche définie</entry>
+<entry code="search_universe_create">Création d'un nouvel univers de recherche</entry>
+<entry code="search_universe_edit">Édition d'un univers de recherche</entry>
+<entry code="search_universe_label">Nom de l'univers</entry>
+<entry code="search_universe_segments">Segmentations</entry>
+<entry code="search_universe_views">Vues</entry>
+<entry code="admin_search_segment">Segment</entry>
+<entry code="search_segment_create">Création d'un nouvel segment de recherche</entry>
+<entry code="search_segment_edit">Édition d'un segment de recherche</entry>
+<entry code="search_segment_label">Nom du segment</entry>
+<entry code="search_segment_logo">Icone</entry>
+<entry code="search_segment_description">Description</entry>
+<entry code="search_segment_type">Type</entry>
+<entry code="search_segment_fields_set">Multicritère de filtrage</entry>
+<entry code="search_segment_save_equation">Mémoriser dans le segment de recherche</entry>
+<entry code="search_segment_confirm_delete">Etes-vous sûr de vouloir supprimer ce segment ?</entry>
+<entry code="search_universe_confirm_delete">Etes-vous sûr de vouloir supprimer cet univers ?</entry>
+<entry code="search_segment_predefined_searches">Recherches prédéfinies</entry>
+<entry code="search_segment_predefined_searches_undefined">Aucune recherche définie</entry>
 
 <entry code="bannette_tpl_insert_id">Identifiant de la bannette</entry>
 <entry code="bannette_tpl_lien_vers_bannette">Lien vers la bannette</entry>
@@ -9536,11 +9536,11 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 
 <entry code="cms_editorial_form_logo_prefered_formats"> (formats conseillés : PNG / JPEG)</entry>
 
-<entry code="deflt_notice_replace_links">Action sur les liens en remplacement de notice et en import</entry>
+<entry code="deflt_notice_replace_links">Action sur les relations entre notices en remplacement de notice et en import</entry>
 <entry code="notice_replace_links_option_keep_title">En cas de remplacement de notice</entry>
-<entry code="notice_replace_links_option_keep_all">Conserver tous les liens</entry>
-<entry code="notice_replace_links_option_keep_replacing">Conserver uniquement les liens de la notice qui remplace</entry>
-<entry code="notice_replace_links_option_keep_replaced">Conserver uniquement les liens de la notice remplacée</entry>
+<entry code="notice_replace_links_option_keep_all">Conserver toutes les relations</entry>
+<entry code="notice_replace_links_option_keep_replacing">Conserver uniquement les relations de la notice qui remplace</entry>
+<entry code="notice_replace_links_option_keep_replaced">Conserver uniquement les relations de la notice remplacée</entry>
 <entry code="admin_opac_contact_form_object_confirm_delete">Voulez-vous vraiment supprimer cet objet ?</entry>
 <entry code="search_concepts_autopostage_check">Etendre la recherche à l'autopostage sur les concepts</entry>
 <entry code="search_concepts_autopostage_multicritere">Concepts avec autopostage</entry>
@@ -9734,15 +9734,14 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 <entry code="list_ui_options_move_option_bottom">Déplacer en dessous</entry>
 <entry code="list_ui_options_move_option_last">Déplacer en dernier</entry>
 <entry code="list_ui_options_group_by">Grouper par</entry>
-<entry code="list_ui_datasets_my">Mes listes personnalisés</entry>
-<entry code="list_ui_datasets_shared">Listes personnalisés</entry>
+<entry code="list_ui_datasets_my">Mes listes personnalisées</entry>
+<entry code="list_ui_datasets_shared">Listes personnalisées</entry>
 <entry code="apply">Appliquer</entry>
 <entry code="list_edit">Edition d'une liste</entry>
 <entry code="list_label">Libellé</entry>
 <entry code="list_label_mandatory">Vous devez donner un nom à votre liste personnalisée.</entry>
 <entry code="list_autorisations">Visible par</entry>
 <entry code="list_default_selected">Sélectionnée par défaut ?</entry>
-<entry code="admin_menu_docs_library_map">Plan</entry>
 <entry code="frbr_cataloging_title">Catalogage</entry>
 <entry code="cms_type_used_in_contribution">Ce type de contenu éditorial est utilisé dans des formulaires de contribution.</entry>
 <entry code="list_applied_sort">Tri</entry>
@@ -9896,7 +9895,7 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 <entry code="search_record_modifier">Modificateur de la notice</entry>
 <entry code="deflt_notice_statut_analysis">Statut de notice par défaut en création d'article</entry>
 <entry code="deflt_notice_statut_analysis_parent">Notice de bulletin</entry>
-<entry code="procs_options_column_name">Utilisé comme nom de champ</entry>
+<entry code="procs_options_column_name">Ne pas renvoyer la valeur entre quotes</entry>
 
 <entry code="files">Gestion des fichiers</entry>
 <entry code="subst_files_management">Fichier substituable</entry>
@@ -9990,4 +9989,36 @@ $Id: fr_FR.xml,v 1.1776 2018-03-26 13:30:44 ngantier Exp $ -->
 <entry code="pagin_navig_concept">Voir la suite</entry>
 <entry code="list_ui_save_order">Enregistrer le tri</entry>
 <entry code="admin_contribution_area_form_list_values">Valeurs à proposer dans la liste</entry>
+<entry code="connecteurs_source_gestion_selected">Activer par défaut en recherche externe en gestion ?</entry>
+<entry code="datatype_sort_facette">Type de données de tri</entry>
+<entry code="datatype_sort_alpha">Alphanumérique</entry>
+<entry code="datatype_sort_num">Numérique</entry>
+<entry code="datatype_sort_date">Date</entry>
+<entry code="selector_groups">Sélection d'un groupe</entry>
+<entry code="list_ui_objects_not_grouped">Sans groupement</entry>
+<entry code="force_modification">Forcer la modification</entry>
+
+<entry code='editions_datasource_explnum'>Documents numériques</entry>
+<entry code='editions_datasource_explnum_id'>Identifiant du document numérique</entry>
+<entry code='editions_datasource_explnum_notice'>Identifiant de la notice</entry>
+<entry code='editions_datasource_explnum_bulletin'>Identifiant du bulletin</entry>
+<entry code='editions_datasource_explnum_audit_type'>Type d'intervention sur le document numérique</entry>
+<entry code='editions_datasource_explnum_locations'>Localisations</entry>
+<entry code='editions_datasource_explnum_thumbnail_url'>URL de la vignette</entry>
+
+<entry code="scheduler_all">Tous</entry>
+<entry code="scheduler_types">Types</entry>
+<entry code="scheduler_labels">Libellés</entry>
+<entry code="scheduler_states">Etats</entry>
+<entry code="scheduler_dates">Dates</entry>
+<entry code="scheduler_dates_start">Après le</entry>
+<entry code="scheduler_dates_end">Avant le</entry>
+<entry code="scheduler_dashboard_ui_form_title">Tableau de bord</entry>
+<entry code="scheduler_delete_confirm">Voulez-vous vraiment supprimer cette(ces) tâches ?</entry>
+<entry code="search_perso_form_directlink_auto_submit">Exécuter cette recherche quand elle est sélectionnée</entry>
+<entry code="expl_header_expl_note">Message exemplaire</entry>
+<entry code="expl_header_expl_comment">Commentaire non bloquant</entry>
+<entry code="expl_header_expl_prix">Prix</entry>
+<entry js="translation" code="translations">Traductions</entry>
+<entry code="admin_menu_docs_library_map">Plan</entry>
 </XMLlist>
