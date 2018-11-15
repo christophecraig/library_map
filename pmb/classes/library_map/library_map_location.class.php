@@ -26,6 +26,27 @@ class library_map_location extends library_map_base {
 	}
 
 	public static function get_locations_from_pmb(){
-		return pmb_mysql_fetch_all(pmb_mysql_query('select idlocation, location_libelle from docs_location'));
+		$locations = array();
+		$query = 'select idlocation, location_libelle from docs_location';
+		$result = pmb_mysql_query($query);
+		while ($r = pmb_mysql_fetch_assoc($result)) {
+			$locations[]= $r;
+		}
+		return $locations;
+	}
+	
+	public static function save_location_link($graph_id, $pmb_id, $type) {
+		// On remet à zéro
+		$query = 'delete from library_map_link where graph_id = "'.$graph_id.'"';
+		pmb_mysql_query($query);
+		// et on enregistre
+		$query = "insert into library_map_link ( `graph_id`, `structure_id`, `structure_type`) values ('".$graph_id."',".$pmb_id.",'".$type."')";
+		try {
+			pmb_mysql_query($query);
+		}
+		catch (Exception $e) {
+			return $e;
+		}
+		return $query;
 	}
 }

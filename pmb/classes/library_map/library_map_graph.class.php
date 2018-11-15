@@ -11,7 +11,7 @@ require_once $class_path . '/library_map/library_map_base.class.php';
 require_once $class_path . '/library_map/library_map_location.class.php';
 require_once $class_path . '/library_map/library_map_section.class.php';
 require_once $class_path . '/library_map/library_map_call_number.class.php';
-require_once ($class_path . '/encoding_normalize.class.php');
+require_once $class_path . '/encoding_normalize.class.php';
 /**
  * classe qui gère le plan en svg
  */
@@ -25,6 +25,7 @@ class library_map_graph {
 	public function __construct($svg_file){
 		$this->svg = new DOMDocument();
 		$this->svg->load($svg_file);
+		var_dump($this->svg->getElementsByTagName('g'));
 		$this->root_node = $this->create_node($this->svg->documentElement, "0", null);
 	}
 
@@ -58,7 +59,7 @@ class library_map_graph {
 			switch ($child->get_type()) {
 				case 'base' :
 					$sub_children['id'] = 'root';
-					$sub_children['shape'] = $child->get_dom_element()->hasAttribute('shape') ? $child->get_dom_element()->getAttribute('shape') : undefined;
+					$sub_children['shape'] = $child->get_dom_element()->hasAttribute('shape') ? $child->get_dom_element()->getAttribute('shape') : false;
 					break;
 				case 'location' :
 					$sub_children['location_id'] = $child->get_location_id();
@@ -72,7 +73,6 @@ class library_map_graph {
 					break;
 			}
 		}
-		// var_dump($children);
 		return $children;
 	}
 
@@ -147,7 +147,7 @@ class library_map_graph {
 		if ($needs_highlight) {
 			$this->highlight_Parents($zone_id, $first_type);
 		}
-		return '<svg width="660" height="440">' . $this->svg->saveXML($instance->get_dom_element()) . '</svg>';
+		return $this->svg->saveXML($instance->get_dom_element());
 	}
 
 	/**
@@ -212,7 +212,13 @@ class library_map_graph {
 	 * @return array
 	 */
 	private function get_sections_from_pmb(){
-		return pmb_mysql_fetch_all(pmb_mysql_query('select distinct idsection from docs_section'));
+		$sections = array();
+		$query = pmb_mysql_query('select distinct idsection from docs_section');
+		$result = pmb_mysql_query($query);
+		while ($r = pmb_mysql_fetch_assoc($result)) {
+			$sections;
+		}
+		return ($sections);
 	}
 
 	/**
@@ -313,27 +319,30 @@ class library_map_graph {
 		}
 		
 		$instance = isset($instance) ? $instance : $this->root_node;
-		echo $zoom_level;
-		echo $needs_highlight;
+		var_dump($this->svg);
+		// TODO : vérifier droits
+		$this->svg->save('./classes/library_map/plan_pmb.svg');
+// 		echo $zoom_level;
+// 		echo $needs_highlight;
 		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
 	}
-
-	// TODO: Soit dans prepare_for_render soit dans format_json, il faudra faire l'opération qui consiste à mettre à plat tout les enfants du tableau
-	// À voir ici
-	public function format_json($json_fragment, $counter = 0){
-		foreach ($json_fragment['children'] as $child) {
-			$counter ++;
-			if ($child['type'] === 'location' || $child['type'] === 'section' || $child['type'] === 'call_number') {
-				$this->svg_map_data[] = $child;
-				if (!isset($child['children'])) {
-					continue;
+	
+	public function format_json ($node){
+		if (isset($node['children'])) {
+			foreach ($node['children'] as $child) {
+				if ($child['type'] != 'base') {
+					$this->svg_map_data[]= array(
+							'treeId' => $child['graph_id'],
+							'parent' => $child['parent'],
+							'type' => $child['type'],
+							'label' => $child['label']
+					);
 				}
-				$this->format_json($child);
+				if (isset($child['children'])) {
+					$this->format_json($child);
+				}
 			}
 		}
-		
-		// var_dump($this->svg_map_data);
-		return $this->svg_map_data;
 	}
 	
 	/**
@@ -342,22 +351,17 @@ class library_map_graph {
 	 */
 	public function render(){
 		$this->svg_map_data[] = array (
-				type => 'base',
-				label => 'Localisations',
-				'graph_id' => '0'
+				'type '=> 'base',
+				'label' => 'Localisations',
+				'treeId' => '0'
 		);
-		// $plan = is_null($plan) ? $this : $plan;
+
 		$all_children = array (
-				children => $this->get_all_children($this->get_root_node()) 
+				'children' => $this->get_all_children($this->get_root_node()),
+				'type' => 'base'
 		);
-		// $render = array (
-		// array (
-		// type => 'base',
-		// 'graph-id' => '0',
-		// label => 'Localisations'
-		// )
-		// );
-		// var_dump($this->format_json($all_children));
-		return $this->format_json($all_children);
+
+		$this->format_json($all_children);
+		return $this->svg_map_data;
 	}
 }

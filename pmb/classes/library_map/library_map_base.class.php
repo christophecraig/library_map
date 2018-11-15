@@ -51,7 +51,7 @@ class library_map_base {
 		} else {
 			$this->graph_id = $graph_id;
 		}
-		$this->dom_element->setAttribute('graph-id', $this->graph_id);
+		$this->dom_element->setAttribute('graphId', $this->graph_id);
 		$this->create_children();
 	}
 
@@ -67,7 +67,7 @@ class library_map_base {
 			return null;
 		}
 		
-		$child_id = "0";
+		$child_graph_id = "0";
 		for($i = 0; $i < $this->dom_element->childNodes->length; $i ++) {
 			$child = $this->dom_element->childNodes[$i];
 			if ($this->graph->is_graph_node($child)) {

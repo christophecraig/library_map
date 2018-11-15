@@ -6,91 +6,40 @@
 if (stristr($_SERVER['REQUEST_URI'], ".inc.php"))
 	die("no access");
 
-require_once ($class_path . '/library_map/library_map_graph.class.php');
-require_once ($class_path . '/encoding_normalize.class.php');
+require_once $class_path . '/library_map/library_map_graph.class.php';
+require_once $class_path.'/library_map/library_structure_data.class.php';
 
+// Chemin à changer pour le svg
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
-echo $graph->search();
-$locations = $graph->get_locations_nodes();
+$structures = new library_structure_data();
 
-// locations du plan
-function get_map_form_location(){
-	$location_ids = array ();
-	foreach (library_map_location::get_locations_from_pmb() as $loc_id) {
-		$location_ids[] = $loc_id;
-    }
-	return $location_ids;
-}
+echo "
+<div id='library-map-panel' data-dojo-type='dijit/layout/BorderContainer' data-dojo-props='splitter:true' style='height:800px;width:100%;'>
+<div data-dojo-type='dijit/layout/ContentPane' data-dojo-props='region:\"left\", splitter:true' style='height:100%;width:200px;'>
+<input type='hidden' id='contribution_area_num' name='contribution_area_num' value='!!id!!'/>
+<div data-dojo-id='libraryMapStore' data-dojo-type='apps/library_map/Store' data-dojo-props='data:".encoding_normalize::json_encode($graph->render())."'></div>
+<div data-dojo-id='libraryMapModel' data-dojo-type='dijit/tree/ObjectStoreModel' data-dojo-props='store: libraryMapStore, query: {treeId: 0}'></div>
+<div data-dojo-id='libraryMapTree' data-dojo-type='apps/library_map/Tree' data-dojo-props='model: libraryMapModel' ></div>
+</div>
+<div data-dojo-id='libraryMapPlan' data-dojo-type='apps/library_map/Panel' data-dojo-props='region:\"center\"' style='height:100%;width:auto;overflow:scroll;'>
+". $graph->search() ."
+</div>
+</div>
+<div id='modal-vue'>
+<modal :options='options' :structure-type='structureType' :graph-id='graphId' v-if='showModal' @close='showModal = false'>
+</div>";
 
-echo '<select id="locations-picker">';
-foreach (get_map_form_location() as $loc) {
-	echo '<option value="' . $loc[0] . '">' . $loc[1] . '</option>';
-}
-echo '</select>';
-var_dump($graph->get_all_children($graph->get_root_node()));
-echo gettype($graph->get_all_children($graph->get_root_node()));
+// Ci-dessous, arbre avec les données de structure de la bib dans PMB
+// echo "
+// <div data-dojo-type='dijit/layout/BorderContainer' data-dojo-props='splitter:true' style='height:800px;width:100%;'>
+// <div data-dojo-type='dijit/layout/ContentPane' data-dojo-props='region:\"left\", splitter:true' style='height:100%;width:200px;'>
+// <input type='hidden' id='contribution_area_num' name='contribution_area_num' value='!!id!!'/>
+// <div data-dojo-id='structuresStore' data-dojo-type='apps/library_map/structures/Store' data-dojo-props='data:".encoding_normalize::json_encode($structures->get_structure())."'></div>
+// <div data-dojo-id='structuresModel' data-dojo-type='dijit/tree/ObjectStoreModel' data-dojo-props='store: structuresStore, query: {type: \"root\"}'></div>
+// <div data-dojo-id='structuresTree' data-dojo-type='apps/library_map/structures/Tree' data-dojo-props='model: structuresModel' ></div>
+// </div>
+// <div data-dojo-id='libraryMapPlan' data-dojo-type='apps/library_map/Panel' data-dojo-props='region:\"center\"' style='height:100%;width:auto;overflow:scroll;'>
+// ". $graph->search() ."
+// </div>
+// </div>";
 ?>
-
-<div id="treeOne" class="colonne2"></div>
-
-<script>
-
-// function formatJson (jsonFragment) {
-// jsonFragment.children.forEach(child => {
-// if (child.type === 'location' || child.type === 'section' || child.type === 'call_number') {
-// svgMapData.push(child);
-// console.log(child.children)
-// if (!child.hasOwnProperty('children')) {
-// console.log('children : ', child.children, child['graph_id'], counter)
-// return null;
-// }
-// formatJson(child);
-// }
-// })
-// return svgMapData
-// }
-
-var svgMapData = JSON.parse('<?php echo encoding_normalize::json_encode($graph->render()); ?>');
-console.log('test');
-
-console.log('svgMapData : ', svgMapData); // Version Ajax ?
-
-require([
-    "dojo/store/Memory",
-    "dijit/tree/ObjectStoreModel", "dijit/Tree",
-    "dojo/domReady!"
-], function(Memory, ObjectStoreModel, Tree) {
-		var myStore = new Memory({
-        data: svgMapData,
-        getChildren: function(object){
-            return this.query({
-				parent: object['graph_id']
-            })
-    	}
-	});
-
-    // Create the model
-    var myModel = new ObjectStoreModel({
-        store: myStore,
-        query: {'graph_id': '0'},
-        labelAttr: 'label'
-    });
-
-    console.log(myModel.store);
-    // Create the Tree.
-    var tree = new Tree({
-        model: myModel,
-        onClick: function(item) {
-            console.log('item : ', item)
-			document.querySelector(`rect[graph_id="${item["graph_id"]}"]`).style = 'fill: red';
-        }
-    });
-    
-    tree.placeAt(document.getElementById('treeOne'));
-    tree.startup()
-    tree.onLoadDeferred.then(function() {
-        console.log('exceptionnel c\'est chargé', tree.model)
-	
-	})
-})
-</script>

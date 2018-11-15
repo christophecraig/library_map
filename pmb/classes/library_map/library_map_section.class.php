@@ -21,10 +21,31 @@ class library_map_section extends library_map_base {
 	}
 	
 	public static function get_sections_from_pmb_by_loc($location_id){
-		echo $location_id;
-		return pmb_mysql_fetch_all(pmb_mysql_query('select distinct idsection, section_libelle, docsloc_section.num_location from docs_section
+		$sections = array();
+		$query = 'select distinct idsection, section_libelle, docsloc_section.num_location
+		from docs_section
 		inner join docsloc_section
 		on docsloc_section.num_section = docs_section.idsection
-		where docsloc_section.num_location = ' . $location_id));
+		where docsloc_section.num_location = ' . $location_id;
+		$result = pmb_mysql_query($query);
+		while ($r = pmb_mysql_fetch_assoc($result)) {
+			$sections[]= $r;
+		}
+		return $sections;
+	}
+	
+	public static function save_section_link($graph_id, $pmb_id, $type) {
+		// On remet à zéro
+		$query = 'delete from library_map_link where graph_id = "'.$graph_id.'"';
+		pmb_mysql_query($query);
+		// et on enregistre
+		$query = "insert into library_map_link ( `graph_id`, `structure_id`, `structure_type`) values ('".$graph_id."',".$pmb_id.",'".$type."')";
+		try {
+			pmb_mysql_query($query);
+		}
+		catch (Exception $e) {
+			return $e;
+		}
+		return $query;
 	}
 }
