@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="660" height="460" xmlns="http://www.w3.org/2000/svg">
+<svg width="660" height="460" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <text xml:space="preserve" type="text" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" id="36" y="16" x="73.33336" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">Plan de la bibliothèque de Château du Loir</text>
 <g id="1" type="location" location="10" label="Bibliotheque principale">
     <rect shape="location" height="199.99983" width="616.18994" y="25.23827" x="21.90501" stroke-width="1.5" stroke="#000" fill="#fff"/>

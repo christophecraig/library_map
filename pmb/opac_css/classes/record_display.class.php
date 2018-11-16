@@ -434,10 +434,11 @@ class record_display {
 							}
 						}
 					} // fin if else $flag_resa
-					// TODO : ajouter l'appel à la fonction qui localise --> Besoin WebService...
 					$expl_liste .= "<td class='".$msg['statut']."'>".
 						static::get_display_situation($expl). 
-						($class_statut == 'expl_available' ? '<button id=locate_'.$expl['expl_id'].'>Localiser</button>' : '').
+						($class_statut == 'expl_available' ? 
+						'<button onclick="locate_expl('.$expl['expl_id'].', \''.$opac_url_base.'\' )">Localiser</button>' : 
+						'').
 					"</td>";
 					$expl_liste = str_replace("!!class_statut!!", $class_statut, $expl_liste);
 					
@@ -501,6 +502,11 @@ class record_display {
 				}
 			}
 			$expl_liste_all=str_replace("<!--nb_expl_visible-->",($nb_expl_visible ? " (".$nb_expl_visible.")" : ""),$expl_liste_all);
+			$expl_liste_all.="
+			<div id='modal-vue'>
+				<modal :map='map' v-if='showModal' @close='showModal = false'>
+			</div>			
+			<script type='text/javascript' src='http://localhost/pmb_library_map/opac_css/includes/javascript/library_map.js'></script>";
 			return $expl_liste_all;
 		}
 		return '';
@@ -598,7 +604,6 @@ class record_display {
 						$mention_resp = implode (", ",$aut1_libelle) ;
 					}
 					$mention_resp ? $auteur = $mention_resp : $auteur="";
-				
 					// on affiche les résultats 
 					if ($odd_even==0) {
 						$pair_impair="odd";

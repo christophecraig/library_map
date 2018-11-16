@@ -24,7 +24,7 @@ define(['dojo/_base/declare',
 				template: `
 			  <transition name="modal">
 			    <div class="modal-mask">
-			      <div class="modal-wrapper"  @click.capture.self="$emit(\'close\')">
+			      <div class="modal-wrapper"  @click.capture.self="$emit('close')">
 			        <div class="modal-container">
 
 			          <div class="modal-header">
@@ -36,22 +36,22 @@ define(['dojo/_base/declare',
 			          <div class="modal-body">
 			            <slot name="body">
 			              <select v-if="structureType == 'section'" v-model="selected">
-							  <option v-for="opt in options" :value="opt.idsection">
-							    {{ opt.section_libelle }}
-							  </option>
-							</select>
+											<option v-for="opt in options" :value="opt.idsection">
+												{{ opt.section_libelle }}
+											</option>
+										</select>
 							
 			              <select v-else-if="structureType == 'location'" v-model="selected">
-							  <option v-for="opt in options" :value="opt.idlocation">
-							    {{ opt.location_libelle }}
-							  </option>
-							</select>
+											<option v-for="opt in options" :value="opt.idlocation">
+												{{ opt.location_libelle }}
+											</option>
+										</select>
 							
 			              <select v-else-if="structureType == 'call_number'" v-model="selected">
-							  <option v-for="opt in options" :value="opt.idlocation">
-							    {{ opt.location_libelle }}
-							  </option>
-							</select>
+											<option v-for="opt in options" :value="opt.idlocation">
+												{{ opt.location_libelle }}
+											</option>
+										</select>
 			            </slot>
 			          </div>
 
@@ -59,7 +59,7 @@ define(['dojo/_base/declare',
 			            <slot name="footer">
 			              default footer
 			              <button class="modal-default-button" @click="save">
-			                OK
+			                Enregistrer
 			              </button>
 			            </slot>
 			          </div>
