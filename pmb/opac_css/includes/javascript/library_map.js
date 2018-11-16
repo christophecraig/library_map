@@ -22,8 +22,7 @@ Vue.component('modal', {
     <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper"  @click.capture.self="$emit('close')">
-        <div class="modal-container">
-        <div v-html="map"></div>
+        <div class="modal-container" v-html="map">
         </div>
       </div>
     </div>

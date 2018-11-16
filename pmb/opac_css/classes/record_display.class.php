@@ -504,7 +504,7 @@ class record_display {
 			$expl_liste_all=str_replace("<!--nb_expl_visible-->",($nb_expl_visible ? " (".$nb_expl_visible.")" : ""),$expl_liste_all);
 			$expl_liste_all.="
 			<div id='modal-vue'>
-				<modal :map='map' v-if='showModal' @close='showModal = false'>
+				<modal :map='map' v-if='showModal' @close='showModal = false'></modal>
 			</div>			
 			<script type='text/javascript' src='http://localhost/pmb_library_map/opac_css/includes/javascript/library_map.js'></script>";
 			return $expl_liste_all;
