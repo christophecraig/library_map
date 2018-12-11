@@ -143,6 +143,7 @@ class library_map_graph {
 	 */
 	public function get_svg($instance, $zone_id, $first_type, $needs_highlight, $zoom_level){
 		// Voir condition de rajout des balises svg ci-dessus
+		var_dump($first_type);
 		if ($needs_highlight) {
 			$this->highlight_Parents($zone_id, $first_type);
 		}
@@ -155,8 +156,8 @@ class library_map_graph {
 	 * @param string $first_type
 	 */
 	private function highlight_parents($id, $first_type){
+		var_dump($first_type);
 		switch ($first_type) {
-			
 			case 'call_number' :
 				if ($this->get_element_by_id($id)->get_type() === 'call_number') {
 					$rect = $this->get_element_by_id($id)->get_dom_element();
@@ -177,7 +178,7 @@ class library_map_graph {
 				$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
 				break;
 		}
-				
+				var_dump($rect);
 		$rect->setAttribute('class', 'highlight');
 		if (strlen($id) > 3) {
 			$parent_id = substr($id, 0, -2);
@@ -236,6 +237,7 @@ class library_map_graph {
 	public function search($location = null, $section = null, $call_number = null, $status = 1, $zoom_level = 0, $restrict_to_zoom = false){
 		$first_type = '';
 		$instance;
+		var_dump($location, $section, $call_number);
 		if ($location !== null) {
 			foreach ($this->get_nodes()['location'] as $loc) {
 				if ($loc->get_location_id() == $location) {
@@ -243,8 +245,7 @@ class library_map_graph {
 					$loc_instance = $loc;
 				}
 			}
-			if (!$loc_exists)
-				return "Cette localisation n'est pas représentée sur le plan !";
+			if (!$loc_exists) return "Cette localisation n'est pas représentée sur le plan !";
 		}
 		
 		if ($section !== null && (!in_array($section, $this->get_sections_nodes($id)))) {
@@ -266,7 +267,7 @@ class library_map_graph {
 			
 			case 0 :
 				$zone_id = $this->root_node->get_id();
-				$needs_highlight = null;
+				$needs_highlight = false;
 				break;
 			
 			case 1 : // only location given
@@ -322,6 +323,7 @@ class library_map_graph {
 		// $this->svg->save('./classes/library_map/plan_pmb.svg');
 // 		echo $zoom_level;
 // 		echo $needs_highlight;
+var_dump($zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
 		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
 	}
 	

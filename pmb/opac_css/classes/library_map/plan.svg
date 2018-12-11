@@ -40,9 +40,9 @@
       <rect id="27" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="25.71426" width="91.42849" y="368.09511" x="280.00002" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
       <rect id="28" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="59.99995" width="19.99998" y="295.71422" x="316.19047" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
     </g>
-    <g id="9" type="section" section="6" label="Documentaires">
+    <g id="9" type="section" section="101" label="Documentaires">
       <rect shape="section" height="134.2856" width="191.4284" y="269.04758" x="429.5237" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
-      <rect id="29" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="59.99995" width="21.90474" y="280.47614" x="588.57118" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
+      <rect id="29" type="call_number" min_call_number="15 PRI" max_call_number="20 QRI" height="59.99995" width="21.90474" y="280.47614" x="588.57118" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
       <rect id="30" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="41.90473" width="19.99998" y="353.80941" x="590.47594" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
       <rect id="31" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="19.0476" width="61.90471" y="372.85701" x="514.28553" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
       <rect id="32" type="call_number" min_call_number="AA AAA" max_call_number="BD ADB" height="79.04755" width="19.99998" y="316.66658" x="438.09512" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#000000"/>
