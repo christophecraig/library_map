@@ -1,23 +1,23 @@
-define(['dojo/_base/declare', 
-        'dijit/layout/ContentPane', 
-        'dojo/request/xhr', 
-        'dojo/dom',
-        'dojo/dom-construct',
-        'dojo/dnd/Target',
-        'dojo/on',
-        'dojo/_base/lang',
-        'dojo/topic',
-        'dojo/Deferred',
-        'dojo/query',
-        'dojo/dom-attr',
-        'dojo/json'
-], function(declare, ContentPane, xhr, dom, domConstruct, dndTarget, on, lang, topic, Deferred, query, domAttr, dojoJson){
+define(['dojo/_base/declare',
+	'dijit/layout/ContentPane',
+	'dojo/request/xhr',
+	'dojo/dom',
+	'dojo/dom-construct',
+	'dojo/dnd/Target',
+	'dojo/on',
+	'dojo/_base/lang',
+	'dojo/topic',
+	'dojo/Deferred',
+	'dojo/query',
+	'dojo/dom-attr',
+	'dojo/json'
+], function (declare, ContentPane, xhr, dom, domConstruct, dndTarget, on, lang, topic, Deferred, query, domAttr, dojoJson) {
 	return declare(ContentPane, {
 		modified: false,
 		field: {},
 		element: document.querySelector('[data-dojo-id="libraryMapPlan"]'),
 		vue: null,
-		constructor: function() {
+		constructor: function () {
 			this.inherited(arguments)
 			topic.subscribe('dblClick', lang.hitch(this, this.display))
 			Vue.component('modal', {
@@ -29,7 +29,7 @@ define(['dojo/_base/declare',
 
 			          <div class="modal-header">
 			            <slot name="header">
-			              Associer cette zone Ã  une {{structureType}}
+			              Associer cette zone à une {{structureType}}
 			            </slot>
 			          </div>
 
@@ -57,7 +57,6 @@ define(['dojo/_base/declare',
 
 			          <div class="modal-footer">
 			            <slot name="footer">
-			              default footer
 			              <button class="modal-default-button" @click="save">
 			                Enregistrer
 			              </button>
@@ -67,27 +66,26 @@ define(['dojo/_base/declare',
 			      </div>
 			    </div>
 			  </transition>`,
-			  props: ['options', 'structureType', 'graphId'],
-			  data() {
-				  return {
-					  selected: ''
-				  }
-			  },
-			  methods: {
-				  save(e) {
-					  console.log(this.selected, this.structureType, this.graphId)
-					  xhr.post('./ajax.php?module=admin&categ=library_map&action=set&structure_type=' + this.structureType, 
-						{
-							 data: {
-								 graph_id: this.graphId,
-								 structure_type: this.structureType,
-								 pmb_id: this.selected
-							 }
-						}).then(function(data) {
+				props: ['options', 'structureType', 'graphId'],
+				data() {
+					return {
+						selected: ''
+					}
+				},
+				methods: {
+					save(e) {
+						console.log(this.selected, this.structureType, this.graphId)
+						xhr.post('./ajax.php?module=admin&categ=library_map&action=set&structure_type=' + this.structureType, {
+							data: {
+								graph_id: this.graphId,
+								structure_type: this.structureType,
+								pmb_id: this.selected
+							}
+						}).then(function (data) {
 							console.log(data)
 						})
-				  }
-			  }
+					}
+				}
 			})
 			this.vue = new Vue({
 				el: '#modal-vue',
@@ -104,11 +102,10 @@ define(['dojo/_base/declare',
 					}
 				}
 			});
-			console.log(this.vue)
 			this.element.addEventListener('dblclick', lang.hitch(this, this.openModal));
 		},
-		
-		display: function(item, node, evt) {
+
+		display: function (item, node, evt) {
 			if (item.type != 'property') {
 				return false;
 			}
@@ -117,28 +114,27 @@ define(['dojo/_base/declare',
 				this.destroyDescendants(false);
 			}
 		},
-		
-		confirmUnload: function() {
+
+		confirmUnload: function () {
 			if (this.modified) {
 				return confirm(pmbDojo.messages.getMessage('contribution_area', 'contribution_area_computed_fields_confirm'));
 			}
 			return true;
 		},
-		
-		openModal: function(e) {
+
+		openModal: function (e) {
 			var el = e.target;
-			var type = typeof el.getAttribute('type') === 'string'  ? el.getAttribute('type') : el.getAttribute('shape');
 			if (el.hasAttribute('shape')) {
 				el = el.parentNode;
-			} 
+			}
 			var type = el.getAttribute('type');
 			switch (type) {
 				case null:
 					break;
 				default:
-					switch ( type ) {
+					switch (type) {
 						case 'section':
-   							this.getStructures(type, el.parentNode.getAttribute('location'));
+							this.getStructures(type, el.parentNode.getAttribute('location'));
 							break;
 						case 'call_number':
 							this.getStructures(type, el.parentNode.getAttribute('section'));
@@ -154,19 +150,18 @@ define(['dojo/_base/declare',
 			}
 			this.vue.$data.graphId = el.getAttribute('graphid');
 			this.vue.$data.showModal = true;
-			
-			// TODO: open modal with select multiple v-model with data from this.getStructures
 		},
-		
+
 		getStructures(type, parentId = null) {
 			var deferred = new Deferred();
 			xhr('./ajax.php?module=admin&categ=library_map&structure_type=' + type + (parentId ? '&parent_id=' + parentId : ''))
-			.then(
-				lang.hitch(this, function(data){
-					this.vue.$data.options = JSON.parse(data);
-					this.vue.$data.structureType = type;
-					deferred.resolve('success');
-				}));
+				.then(
+					lang.hitch(this, function (data) {
+						this.vue.$data.options = JSON.parse(data);
+						this.vue.$data.structureType = type;
+						deferred.resolve('success');
+					})
+				);
 			return deferred.promise;
 		}
 	})

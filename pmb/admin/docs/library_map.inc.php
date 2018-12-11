@@ -22,7 +22,7 @@ echo "
 <div data-dojo-id='libraryMapTree' data-dojo-type='apps/library_map/Tree' data-dojo-props='model: libraryMapModel' ></div>
 </div>
 <div data-dojo-id='libraryMapPlan' data-dojo-type='apps/library_map/Panel' data-dojo-props='region:\"center\"' style='height:100%;width:auto;overflow:scroll;'>
-". $graph->search() ."
+". $graph->search(10, null, null, 1, 1) ."
 </div>
 </div>
 <div id='modal-vue'>

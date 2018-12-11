@@ -18,7 +18,6 @@ define(["dojo/_base/declare",
 		
 		getChildren: function(object, node) {
 			var children = this.query({parent: object.treeId});
-			console.log(object.treeId, children)
 			return children;
 		}
 	});
