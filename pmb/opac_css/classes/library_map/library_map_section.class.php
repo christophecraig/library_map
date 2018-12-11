@@ -13,11 +13,15 @@ class library_map_section extends library_map_base {
 	private $section_id = 0;
 	protected function get_properties($graph_id){
 		parent::get_properties($graph_id);
-		$this->section_id = $this->get_section_id();
+		$this->section_id = $this->set_section();
 	}
 	
-	public function get_section_id(){
+	private function set_section(){
 		return $this->dom_element->getAttribute('section');
+	}
+
+	public function get_section_id() {
+		return $this->section_id;
 	}
 	
 	public static function get_sections_from_pmb_by_loc($location_id){

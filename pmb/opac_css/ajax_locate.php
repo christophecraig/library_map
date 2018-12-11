@@ -43,7 +43,7 @@ require_once($base_path.'/includes/localisation.inc.php');
 require_once($base_path."/includes/rec_history.inc.php");
 
 // inclusion des fonctions utiles pour renvoyer la réponse à la requette recu 
-require_once ($base_path . "/includes/ajax.inc.php");
+require_once($base_path . "/includes/ajax.inc.php");
 require_once($base_path."/includes/marc_tables/".$pmb_indexation_lang."/empty_words");
 
 require_once($include_path.'/plugins.inc.php');
@@ -57,11 +57,10 @@ if($att_id_filter == 'null'){
     $att_id_filter = null;
 }
 
-$query = 'select expl_cote, expl_section, expl_location from exemplaires where expl_id = '.$id; 
+$query = 'select expl_cote, expl_section, expl_location, expl_statut from exemplaires where expl_id = '.$id; 
 // à voir sinon, je peux la récupérer avant et l'envoyer directement plutot qu'envoyer l'id
 $result = pmb_mysql_query($query);
 $expl = pmb_mysql_fetch_assoc($result);
-var_dump($expl);
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
-if ($expl) echo encoding_normalize::json_encode($graph->search($expl['expl_location'], $expl['expl_section'], $expl['expl_cote'], 1, 3));
-
+// if ($expl) echo encoding_normalize::json_encode($graph->search(5, 101));
+echo encoding_normalize::json_encode($graph->get_locations_nodes());

@@ -5,6 +5,7 @@ function locate_expl(explId, urlBase) {
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
+            console.log(xhr.responseText)
             leVue.$data.map = JSON.parse(xhr.responseText);
             leVue.$data.showModal = true;
         }

@@ -20,7 +20,7 @@ class library_map_graph {
 	private $root_node;
 	private $nodes_in_document;
 	private $toRender = '';
-	private $svg_map_data = array ();
+	private $svg_map_data = array();
 
 	public function __construct($svg_file){
 		$this->svg = new DOMDocument();
@@ -143,7 +143,6 @@ class library_map_graph {
 	 */
 	public function get_svg($instance, $zone_id, $first_type, $needs_highlight, $zoom_level){
 		// Voir condition de rajout des balises svg ci-dessus
-		var_dump($first_type);
 		if ($needs_highlight) {
 			$this->highlight_Parents($zone_id, $first_type);
 		}
@@ -156,7 +155,6 @@ class library_map_graph {
 	 * @param string $first_type
 	 */
 	private function highlight_parents($id, $first_type){
-		var_dump($first_type);
 		switch ($first_type) {
 			case 'call_number' :
 				if ($this->get_element_by_id($id)->get_type() === 'call_number') {
@@ -178,7 +176,6 @@ class library_map_graph {
 				$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
 				break;
 		}
-				var_dump($rect);
 		$rect->setAttribute('class', 'highlight');
 		if (strlen($id) > 3) {
 			$parent_id = substr($id, 0, -2);
@@ -202,7 +199,7 @@ class library_map_graph {
 	public function get_sections_nodes($id){
 		$location = $this->get_element_by_id($id);
 		if (!is_object($location)) {
-			return array ();
+			return array();
 		}
 		return $location->get_children();
 	}
@@ -236,8 +233,8 @@ class library_map_graph {
 	 */
 	public function search($location = null, $section = null, $call_number = null, $status = 1, $zoom_level = 0, $restrict_to_zoom = false){
 		$first_type = '';
-		$instance;
-		var_dump($location, $section, $call_number);
+		$instance_loc;
+
 		if ($location !== null) {
 			foreach ($this->get_nodes()['location'] as $loc) {
 				if ($loc->get_location_id() == $location) {
@@ -247,12 +244,19 @@ class library_map_graph {
 			}
 			if (!$loc_exists) return "Cette localisation n'est pas représentée sur le plan !";
 		}
-		
-		if ($section !== null && (!in_array($section, $this->get_sections_nodes($id)))) {
-			return "Cette section n'est pas représentée sur le plan";
+
+		if ($section !== null /*&& (!in_array($section, $this->get_sections_nodes($loc->get_id())))*/) {
+			foreach($this->get_sections_nodes($loc->get_id()) as $sec) {
+				if ($sec->get_section_id() == $section) {
+					var_dump('exact');
+					$sec_exists = true;
+					$instance_sec = $sec;
+				}
+			}
+			if (!$sec_exists) return "Cette section n'est pas représentée sur le plan";
 		}
-		
-		if ($status != 1 && $status != 13) {
+
+		if ($status != 1 && $status != 13 && $status != '18') {
 			return "L'exemplaire n'est pas consultable pour le moment";
 		}
 		
@@ -276,7 +280,7 @@ class library_map_graph {
 					$zone_id = $instance->get_id();
 				} else {
 					foreach ($this->get_nodes()['location'] as $location_instance) {
-						if ($location_instance->get_locations_id() === $location) {
+						if ($location_instance->get_locations_id() == $location) {
 							$zone_id = $location_instance->get_id();
 						}
 					}
@@ -323,7 +327,6 @@ class library_map_graph {
 		// $this->svg->save('./classes/library_map/plan_pmb.svg');
 // 		echo $zoom_level;
 // 		echo $needs_highlight;
-var_dump($zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
 		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
 	}
 	

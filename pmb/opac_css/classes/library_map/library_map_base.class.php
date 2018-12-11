@@ -107,7 +107,8 @@ class library_map_base {
 	 * @return string
 	 */
 	public function get_id(){
-		return $this->dom_element->hasAttribute('pmb-id') ? $this->dom_element->getAttribute('pmb-id') : null;
+		// TODO : something wrong here with the attribute
+		return $this->dom_element->hasAttribute('id') ? $this->dom_element->getAttribute('id') : null;
 	}
 
 	public function get_graph_id(){
