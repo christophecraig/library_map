@@ -58,9 +58,9 @@ if($att_id_filter == 'null'){
 }
 
 $query = 'select expl_cote, expl_section, expl_location, expl_statut from exemplaires where expl_id = '.$id; 
-// à voir sinon, je peux la récupérer avant et l'envoyer directement plutot qu'envoyer l'id
+// à voir sinon, je peux récupérer ces infos avant et l'envoyer directement plutot qu'envoyer l'id
 $result = pmb_mysql_query($query);
 $expl = pmb_mysql_fetch_assoc($result);
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
 // if ($expl) echo encoding_normalize::json_encode($graph->search(5, 101));
-echo encoding_normalize::json_encode($graph->get_locations_nodes());
+print_r($graph->render());
