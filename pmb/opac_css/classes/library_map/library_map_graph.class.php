@@ -97,6 +97,7 @@ class library_map_graph {
 	 * @return library_map_base
 	 */
 	public function create_node($dom_element, $id, $instance){
+		print_r($dom_element->id);
 		$child_class = library_map_base::get_class_name_from_type($dom_element->getAttribute('type'));
 		$child = new $child_class($dom_element, $instance, $id, $this);
 		$this->index_node($child); // Peut-etre pas, pas utile pour Text par exemple ?
@@ -166,21 +167,23 @@ class library_map_graph {
 			
 			case 'section' :
 				if ($this->get_element_by_id($id)->get_type() === 'section') {
-					$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
+					$rect = $this->get_element_by_id($id)->get_dom_element();
 				} else {
 					$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
 				}
 				break;
 			
 			case 'location' :
-				$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
+				$rect = $this->get_element_by_id($id)->get_dom_element();
 				break;
 		}
-		$rect->setAttribute('class', 'highlight');
-		if (strlen($id) > 3) {
-			$parent_id = substr($id, 0, -2);
-			$this->highlight_parents($parent_id, $first_type);
-		}
+		if (!is_null($rect)) $rect->setAttribute('class', 'highlight');
+		$parent = $this->get_element_by_id($id)->get_parent();
+		// if (strlen($id) > 3) {
+		// 	$parent_id = substr($id, 0, -2);
+		// 	$this->highlight_parents($parent_id, $first_type);
+		// }
+		if (!is_null($parent)) $this->highlight_parents($parent->get_id(), $parent->get_type());
 	}
 
 	/**
@@ -233,7 +236,7 @@ class library_map_graph {
 	 */
 	public function search($location = null, $section = null, $call_number = null, $status = 1, $zoom_level = 0, $restrict_to_zoom = false){
 		$first_type = '';
-		$instance_loc;
+		$loc_instance;
 
 		if ($location !== null) {
 			foreach ($this->get_nodes()['location'] as $loc) {
@@ -246,9 +249,8 @@ class library_map_graph {
 		}
 
 		if ($section !== null /*&& (!in_array($section, $this->get_sections_nodes($loc->get_id())))*/) {
-			foreach($this->get_sections_nodes($loc->get_id()) as $sec) {
+			foreach($this->get_nodes()['section'] as $sec) {
 				if ($sec->get_section_id() == $section) {
-					var_dump('exact');
 					$sec_exists = true;
 					$instance_sec = $sec;
 				}
@@ -259,7 +261,7 @@ class library_map_graph {
 		if ($status != 1 && $status != 13 && $status != '18') {
 			return "L'exemplaire n'est pas consultable pour le moment";
 		}
-		
+
 		// Ci-dessous, testé 2 fois la nullité de $location, pas utile
 		if ($location === null && $section === null && $call_number === null) {
 			$needs_highlight = false;
@@ -308,7 +310,6 @@ class library_map_graph {
 					foreach ($this->get_nodes()['call_number'] as $call_number_instance) {
 						if ($call_number_instance->get_min_call_number() < $call_number && $call_number_instance->get_max_call_number() > $call_number) {
 							$zone_id = $call_number_instance->get_id();
-							$instance = $this->root_node;
 							break;
 						}
 					}
@@ -323,10 +324,7 @@ class library_map_graph {
 		}
 		
 		$instance = isset($instance) ? $instance : $this->root_node;
-		// TODO : vérifier droits
-		// $this->svg->save('./classes/library_map/plan_pmb.svg');
-// 		echo $zoom_level;
-// 		echo $needs_highlight;
+
 		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
 	}
 	

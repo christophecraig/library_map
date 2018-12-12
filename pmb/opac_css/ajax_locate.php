@@ -63,4 +63,4 @@ $result = pmb_mysql_query($query);
 $expl = pmb_mysql_fetch_assoc($result);
 $graph = new library_map_graph($class_path . '/library_map/plan.svg');
 // if ($expl) echo encoding_normalize::json_encode($graph->search(5, 101));
-print_r($graph->render());
+echo encoding_normalize::json_encode($graph->search($expl['expl_location'], $expl['expl_section'], $expl['expl_cote'], 1, 3));
