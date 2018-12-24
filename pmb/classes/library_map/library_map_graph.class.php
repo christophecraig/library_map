@@ -144,7 +144,6 @@ class library_map_graph {
 	public function get_svg($instance, $zone_id, $first_type, $needs_highlight, $zoom_level){
 		$query = 'select svg from library_map_svg
 		where idloc = ' . $zone_id;
-		var_dump($zone_id);
 		// Voir condition de rajout des balises svg ci-dessus
 		if ($needs_highlight) {
 			$this->highlight_Parents($zone_id, $first_type);
@@ -276,8 +275,7 @@ class library_map_graph {
 			
 			case 1 : // only location given
 				if ($restrict_to_zoom) {
-					// var_dump($this->get_nodes()['location'][array_search($location, $this->get_nodes()['location'])]);
-					$instance = $this->get_nodes()['location'][array_search($location, $this->get_nodes()['location'])];
+					$instance = $this->get_nodes()['location'][array_search($location, array_column($this->get_nodes(), 'location'))];
 					$zone_id = $instance->get_id();
 				} else {
 					foreach ($this->get_nodes()['location'] as $location_instance) {
@@ -291,7 +289,7 @@ class library_map_graph {
 			
 			case 2 : // location and Section given
 				if ($restrict_to_zoom) {
-					$instance = $this->get_nodes()['section'][array_search($section, $this->get_nodes()['section'])];
+					$instance = $this->get_nodes()['section'][array_search($section, array_column($this->get_nodes(), 'section'))];
 					$zone_id = $instance->get_id();
 				} else {
 					foreach ($this->get_nodes()['section'] as $section_instance) {
@@ -304,7 +302,7 @@ class library_map_graph {
 			
 			case 3 : // location, Section and call_number given
 				if ($restrict_to_zoom) {
-					$instance = $this->get_nodes()['call_number'][array_search($call_number, $this->get_nodes()['call_number'])];
+					$instance = $this->get_nodes()['call_number'][array_search($call_number, array_column($this->get_nodes(),'call_number'))];
 					$zone_id = $instance->get_id();
 				} else {
 					foreach ($this->get_nodes()['call_number'] as $call_number_instance) {
@@ -326,7 +324,6 @@ class library_map_graph {
 		}
 		
 		$instance = isset($instance) ? $instance : $this->root_node;
-		var_dump($instance);
 		// TODO : vérifier droits
 
 		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
