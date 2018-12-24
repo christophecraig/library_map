@@ -281,7 +281,6 @@ class library_map_graph {
 					foreach ($this->get_nodes()['location'] as $location_instance) {
 						if ($location_instance->get_location_id() == $location) {
 							$zone_id = $location_instance->get_id();
-							var_dump($zone_id);
 						}
 					}
 				}
