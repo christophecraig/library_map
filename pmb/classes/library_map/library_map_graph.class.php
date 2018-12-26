@@ -34,7 +34,7 @@ class library_map_graph {
 	 * @return array of instances
 	 */
 	public function get_all_children($instance){
-		$children = array ();
+		$children = array();
 		foreach ($instance->get_children() as $child) {
 			/**
 			 *
@@ -75,6 +75,10 @@ class library_map_graph {
 		return $children;
 	}
 
+	public static function get_svg_width($instance) {
+		return $instance->get_width();
+	}
+
 	/**
 	 * This function checks if the node should appear on the graph
 	 *
@@ -109,8 +113,8 @@ class library_map_graph {
 	 * @param library_map_base $instance
 	 */
 	public function index_node($instance){
-		$this->nodes_in_document[$instance->get_type()][] = $instance;
-		$this->nodes_in_document["ids"][$instance->get_id()] = $instance;
+		$this->nodes_in_document[$instance->get_type()][$instance->get_typed_id()] = $instance;
+		$this->nodes_in_document['ids'][$instance->get_id()] = $instance;
 	}
 
 	/**
@@ -120,6 +124,10 @@ class library_map_graph {
 	 */
 	public function get_element_by_id($id){
 		return (isset($this->nodes_in_document['ids'][$id]) ? $this->nodes_in_document['ids'][$id] : null);
+	}
+
+	public function get_element_by_graph_id($graph_id){
+		return (isset($this->nodes_in_document['graph_ids'][$graph_id]) ? $this->nodes_in_document['graph_ids'][$graph_id] : null);
 	}
 
 	public function get_nodes(){
@@ -142,11 +150,11 @@ class library_map_graph {
 	 * @return string
 	 */
 	public function get_svg($instance, $zone_id, $first_type, $needs_highlight, $zoom_level){
-		$query = 'select svg from library_map_svg
-		where idloc = ' . $zone_id;
+		// $query = 'select svg from library_map_svg
+		// where idloc = ' . $zone_id;
 		// Voir condition de rajout des balises svg ci-dessus
 		if ($needs_highlight) {
-			$this->highlight_Parents($zone_id, $first_type);
+			$this->highlight_parents($zone_id, $first_type);
 		}
 		return $this->svg->saveXML($instance->get_dom_element());
 	}
@@ -157,33 +165,36 @@ class library_map_graph {
 	 * @param string $first_type
 	 */
 	private function highlight_parents($id, $first_type){
+		$rect = new DOMElement('div'); // init
+		$instance = $this->get_element_by_id($id);
 		switch ($first_type) {
 			
 			case 'call_number' :
-				if ($this->get_element_by_id($id)->get_type() === 'call_number') {
-					$rect = $this->get_element_by_id($id)->get_dom_element();
+				if ($instance->get_type() === 'call_number') {
+					$rect = $instance->get_dom_element();
 				} else {
-					$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
+					$rect = $instance->get_dom_element();
 				}
 				break;
 			
 			case 'section' :
-				if ($this->get_element_by_id($id)->get_type() === 'section') {
-					$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
+				if ($instance->get_type() === 'section') {
+					$rect = $instance->get_children()[0]->get_dom_element();
 				} else {
-					$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
+					$rect = $instance->get_dom_element();
 				}
 				break;
 			
 			case 'location' :
-				$rect = $this->get_element_by_id($id . '.1')->get_dom_element();
+				if ($instance->get_type() === 'location') {
+					$rect = $instance->get_children()[0]->get_dom_element();
+				}
 				break;
 		}
-				
-		if (isset($rect)) $rect->setAttribute('class', 'highlight');
-		if (strlen($id) > 3) {
-			$parent_id = substr($id, 0, -2);
-			$this->highlight_parents($parent_id, $first_type);
+		if (isset($rect)) $rect->setAttribute('class', 'map-zone-highlight');
+		$graph_id = $instance->get_graph_id();
+		if (strlen($graph_id) > 3) {
+			$this->highlight_parents($instance->get_parent()->get_id(), $first_type);
 		}
 	}
 
@@ -236,8 +247,10 @@ class library_map_graph {
 	 * @return string
 	 */
 	public function search($location = null, $section = null, $call_number = null, $status = 1, $zoom_level = 0, $restrict_to_zoom = true){
+		global $msg;
 		$first_type = '';
 		$instance;
+		
 		if ($location !== null) {
 			foreach ($this->get_nodes()['location'] as $loc) {
 				if ($loc->get_location_id() == $location) {
@@ -245,18 +258,17 @@ class library_map_graph {
 					$loc_instance = $loc;
 				}
 			}
-			if (!$loc_exists)
-			// TODO : mettre dans le fichier de messages
-				return "Cette localisation n'est pas représentée sur le plan !";
+			if (!$loc_exists) {
+				return $msg['location_not_on_map'];
+			}
 		}
 		
-		if ($section !== null && (!in_array($section, $this->get_sections_nodes($id)))) {
-			// TODO : mettre dans le fichier de messages
-			return "Cette section n'est pas représentée sur le plan";
-		}
+		// if ($section !== null) {
+		// 	return $msg['section_not_on_map'];
+		// }
 		
 		if ($status != 1 && $status != 13) {
-			return "L'exemplaire n'est pas consultable pour le moment";
+			return $msg['expl_wrong_status'];
 		}
 		
 		// Ci-dessous, testé 2 fois la nullité de $location, pas utile
@@ -275,7 +287,12 @@ class library_map_graph {
 			
 			case 1 : // only location given
 				if ($restrict_to_zoom) {
-					$instance = $this->get_nodes()['location'][array_search($location, array_column($this->get_nodes(), 'location'))];
+					foreach($this->get_nodes()['location'] as $location_instance) {
+						if ($location_instance->get_location_id() == $location) {
+							$zone_id = $location_instance->get_id();
+						}
+					}
+					$instance = $this->get_nodes()['ids'][$zone_id];
 					$zone_id = $instance->get_id();
 				} else {
 					foreach ($this->get_nodes()['location'] as $location_instance) {
@@ -288,7 +305,7 @@ class library_map_graph {
 			
 			case 2 : // location and Section given
 				if ($restrict_to_zoom) {
-					$instance = $this->get_nodes()['section'][array_search($section, array_column($this->get_nodes(), 'section'))];
+					$instance = $this->get_nodes()['section'][$section];
 					$zone_id = $instance->get_id();
 				} else {
 					foreach ($this->get_nodes()['section'] as $section_instance) {
@@ -305,7 +322,8 @@ class library_map_graph {
 					$zone_id = $instance->get_id();
 				} else {
 					foreach ($this->get_nodes()['call_number'] as $call_number_instance) {
-						if ($call_number_instance->get_min_call_number() < $call_number && $call_number_instance->get_max_call_number() > $call_number) {
+						if ($call_number_instance->get_min_call_number() < $call_number && 
+							$call_number_instance->get_max_call_number() > $call_number) {
 							$zone_id = $call_number_instance->get_id();
 							$instance = $this->root_node;
 							break;
@@ -317,15 +335,27 @@ class library_map_graph {
 			
 			default :
 				$instance = $this->root_node;
-				// TODO : mettre dans le fichier de messages
-				return 'Le niveau de zoom indiqué n\'est pas correct';
+				return $msg['wrong_zoom_level'];
 				break;
 		}
-		
+		var_dump($zone_id);
 		$instance = isset($instance) ? $instance : $this->root_node;
 		// TODO : vérifier droits
-
 		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
+	}
+
+	public function section_is_in_loc($section, $loc) {
+		var_dump(count($loc->get_children()));
+		var_dump($this->get_nodes()['section'][$section]);
+		$first = true;
+		foreach($loc->get_children() as $sec) {
+			var_dump($sec->get_id() . ' - ' . $section);
+			if ($first) var_dump($sec);
+			$first= false;
+			if ($sec->get_id() == $section) return true;
+		}
+		return false;
+
 	}
 	
 	public function format_json ($node){

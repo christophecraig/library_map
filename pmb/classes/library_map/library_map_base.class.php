@@ -24,6 +24,9 @@ class library_map_base {
 	private $label = null;
 	private $graph = null;
 	private $graph_id = "1";
+	private $type_id = 0;
+	// private $width = 0;
+	// private $height = 0;
 	protected $type = "base";
 
 	/**
@@ -40,6 +43,14 @@ class library_map_base {
 		$this->get_properties($graph_id);
 	}
 
+	// public function get_width() {
+	// 	return $this->width;
+	// }
+
+	// public function get_height() {
+	// 	return $this->height;
+	// }
+
 	/**
 	 * Generates and assigns unique id for this instance
 	 *
@@ -51,7 +62,10 @@ class library_map_base {
 		} else {
 			$this->graph_id = $graph_id;
 		}
-		$this->dom_element->setAttribute('graphId', $this->graph_id);
+		$this->width = $this->dom_element->getAttribute('width');
+		$this->height = $this->dom_element->getAttribute('height');
+		$this->type_id = $this->dom_element->getAttribute($this->get_type());
+		$this->dom_element->setAttribute('graphid', $this->graph_id);
 		$this->create_children();
 	}
 
@@ -107,7 +121,7 @@ class library_map_base {
 	 * @return string
 	 */
 	public function get_id(){
-		return $this->dom_element->hasAttribute('id') ? $this->dom_element->getAttribute('pmb-id') : null;
+		return $this->dom_element->hasAttribute('id') ? $this->dom_element->getAttribute('id') : null;
 	}
 
 	public function get_graph_id(){
@@ -120,6 +134,10 @@ class library_map_base {
 	 */
 	public function get_type(){
 		return $this->type;
+	}
+
+	public function get_typed_id() {
+		return $this->type_id;
 	}
 
 	/**
