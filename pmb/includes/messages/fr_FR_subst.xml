@@ -7,5 +7,10 @@
 ****************************************************************************************
 $Id: fr_FR.xml,v 1.1846 2018-10-12 15:12:42 apetithomme Exp $ -->
 
-<XMLlist><entry code="admin_menu_docs_library_map">Plan</entry>
+<XMLlist>
+<entry code="admin_menu_docs_library_map">Plan</entry>
+<entry code="location_not_on_map">Cette localisation n'est pas représentée sur le plan !</entry>
+<entry code="section_not_on_map">Cette section n'est pas représentée sur le plan</entry>
+<entry code="expl_wrong_status">L'exemplaire n'est pas consultable pour le moment</entry>
+<entry code="wrong_zoom_level">Le niveau de zoom indiqué n'est pas correct</entry>
 </XMLlist>
