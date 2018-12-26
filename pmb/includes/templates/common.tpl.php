@@ -169,7 +169,8 @@ $std_header = "<!DOCTYPE html>
       $std_header.= $css_addon;
       $std_header.="
 	<link rel=\"SHORTCUT ICON\" href=\"images/favicon.ico\" />
-	<script src='https://unpkg.com/vue'></script>
+    <script src='//unpkg.com/vue'></script>
+    <script src='".$base_path."/javascript/snap.svg.js'></script>
 	<script src=\"".$base_path."/javascript/popup.js\" type=\"text/javascript\"></script>
 	<script src=\"".$base_path."/javascript/drag_n_drop.js\" type=\"text/javascript\"></script>
 	<script src=\"".$base_path."/javascript/handle_drop.js\" type=\"text/javascript\"></script>
