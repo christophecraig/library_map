@@ -167,6 +167,7 @@ class library_map_graph {
 	private function highlight_parents($id, $first_type){
 		$rect = new DOMElement('div'); // init
 		$instance = $this->get_element_by_id($id);
+		var_dump($instance->get_type(). ' : ' .$first_type);
 		switch ($first_type) {
 			
 			case 'call_number' :
@@ -186,13 +187,15 @@ class library_map_graph {
 				break;
 			
 			case 'location' :
-				if ($instance->get_type() === 'location') {
+				if ($instance->get_type() === 'location' || $instance->get_type() === 'section') {
 					$rect = $instance->get_children()[0]->get_dom_element();
 				}
 				break;
 		}
+		var_dump($rect);
 		if (isset($rect)) $rect->setAttribute('class', 'map-zone-highlight');
 		$graph_id = $instance->get_graph_id();
+		var_dump($graph_id);
 		if (strlen($graph_id) > 3) {
 			$this->highlight_parents($instance->get_parent()->get_id(), $first_type);
 		}
@@ -249,23 +252,31 @@ class library_map_graph {
 	public function search($location = null, $section = null, $call_number = null, $status = 1, $zoom_level = 0, $restrict_to_zoom = true){
 		global $msg;
 		$first_type = '';
-		$instance;
+		$instance = null;
+		$loc_instance = null;
+		$sec_instance = null;
 		
 		if ($location !== null) {
 			foreach ($this->get_nodes()['location'] as $loc) {
 				if ($loc->get_location_id() == $location) {
-					$loc_exists = true;
 					$loc_instance = $loc;
+					break; // get out of loop if loc instance found
 				}
 			}
-			if (!$loc_exists) {
+			if (is_null($loc_instance)) {
 				return $msg['location_not_on_map'];
 			}
 		}
 		
-		// if ($section !== null) {
-		// 	return $msg['section_not_on_map'];
-		// }
+		if ($section !== null) {
+			foreach ($this->get_nodes()['section'] as $sec) {
+				if ($sec->get_section_id() == $section) {
+					$sec_instance = $sec;
+					break;
+				}
+			}
+			if (is_null($sec_instance)) return $msg['section_not_on_map'];
+		}
 		
 		if ($status != 1 && $status != 13) {
 			return $msg['expl_wrong_status'];
@@ -285,15 +296,22 @@ class library_map_graph {
 				$needs_highlight = null;
 				break;
 			
-			case 1 : // only location given
+			case 1 : // location given
 				if ($restrict_to_zoom) {
+					var_dump('super');
 					foreach($this->get_nodes()['location'] as $location_instance) {
 						if ($location_instance->get_location_id() == $location) {
-							$zone_id = $location_instance->get_id();
+							$instance = $location_instance;
 						}
 					}
-					$instance = $this->get_nodes()['ids'][$zone_id];
 					$zone_id = $instance->get_id();
+					if ($section) {
+						foreach($this->get_nodes()['section'] as $section_instance) {
+							if ($section_instance->get_section_id() == $section) {
+								$zone_id = $section_instance->get_id();
+							}
+						}
+					}
 				} else {
 					foreach ($this->get_nodes()['location'] as $location_instance) {
 						if ($location_instance->get_location_id() == $location) {
@@ -338,10 +356,9 @@ class library_map_graph {
 				return $msg['wrong_zoom_level'];
 				break;
 		}
-		var_dump($zone_id);
 		$instance = isset($instance) ? $instance : $this->root_node;
 		// TODO : vérifier droits
-		return $this->get_svg($instance, $zone_id, ((!is_null($this->get_element_by_id($zone_id))) ? $this->get_element_by_id($zone_id)->get_type() : 'library_map_base'), $needs_highlight, $zoom_level);
+		return $this->get_svg($instance, $zone_id, $instance->get_type(), $needs_highlight, $zoom_level);
 	}
 
 	public function section_is_in_loc($section, $loc) {
