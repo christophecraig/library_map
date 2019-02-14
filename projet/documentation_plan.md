@@ -12,7 +12,11 @@ Si votre groupe de formes se rapporte à une section ou à une localisation, il 
 
 ## Balises
 
-Toutes les balises ne seront pas interprétées. Il est à noter que vous pouvez tout à fait utiliser d'autres éléments SVG qui ne sont pas des formes apparaissant sur le plan tels du texte avec la balise `<text>` ou un lien avec la balise `<a>`. Nous vous encourageons aussi à indiquer sur le plan des élements n'ayant pas d'intérêt pour PMB comme des toilettes, l'accueil ou un coin informatique. Ces formes ne seront pas interprétées par PMB mais faciliteront grandement la tâche des lecteurs pour se repérer au sein de votre structure.
+`<rect>`, `<circle>`, `<polygon>`, `<ellipse>`, `<path>`
+
+Toute balise autre que les 5 ci-dessus sera considérée comme sans intérêt par le logiciel PMB dans le cadre de la localisation d'un exemplaire. Elle ne sera pas retirée du plan mais simplement
+
+Il est à noter que vous pouvez tout à fait utiliser d'autres éléments SVG qui ne sont pas de véritables formes apparaissant sur le plan tels du texte avec la balise `<text>` ou un lien avec la balise `<a>`. Nous vous encourageons aussi à indiquer sur le plan des élements n'ayant pas d'intérêt pour PMB comme des toilettes, l'accueil ou un coin informatique. Ces formes ne seront pas interprétées par PMB mais faciliteront grandement la tâche des lecteurs pour se repérer au sein de votre structure.
 
 ## Attributs autorisés
 
