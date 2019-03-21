@@ -2,7 +2,7 @@
 // +-------------------------------------------------+
 // � 2002-2004 PMB Services / www.sigb.net pmb@sigb.net et contributeurs (voir www.sigb.net)
 // +-------------------------------------------------+
-// $Id: admin.tpl.php,v 1.261 2018-01-29 14:52:30 ngantier Exp $
+// $Id: admin.tpl.php,v 1.276 2019-03-08 08:42:14 apetithomme Exp $
 
 if (stristr($_SERVER['REQUEST_URI'], ".tpl.php")) die("no access");
 
@@ -10,6 +10,19 @@ if(!isset($file_in)) $file_in = '';
 if(!isset($suffix)) $suffix = '';
 if(!isset($mimetype)) $mimetype = '';
 if(!isset($output)) $output = '';
+
+global $pmb_logs_activate, $pmb_opac_view_activate, $pmb_nomenclature_activate, $pmb_quotas_avances, $pmb_utiliser_calendrier;
+global $pmb_gestion_financiere, $pmb_planificateur_allow, $pmb_mails_waiting, $pmb_sur_location_activate;
+global $pmb_selfservice_allow, $pmb_transferts_actif, $pmb_javascript_office_editor;
+global $opac_visionneuse_allow;
+
+global $opac_search_universes_activate, $opac_websubscribe_show, $opac_serialcirc_active;
+
+global $ldap_accessible;
+
+global $faq_active;
+
+global $acquisition_gestion_tva, $acquisition_sugg_categ;
 
 // ---------------------------------------------------------------------------
 //	$admin_menu_new : Menu vertical de l'administration
@@ -29,21 +42,23 @@ $admin_menu_new = "
 	<li><a href='./admin.php?categ=users'>$msg[25]</a></li>
 	<li><a href='./admin.php?categ=cms_editorial'>".$msg['editorial_content']."</a></li>
 	<li><a href='./admin.php?categ=loans'>".$msg['admin_menu_loans']."</a></li>
+	<li><a href='./admin.php?categ=pnb'>".$msg['admin_menu_pnb']."</a></li>
+	<li><a href='./admin.php?categ=composed_vedettes'>".$msg['admin_menu_composed_vedettes']."</a></li>
 </ul>
 <h3 onclick='menuHide(this,event)'>".$msg['opac_admin_menu']."</h3>
 <ul>
 	<li><a href='./admin.php?categ=infopages'>".$msg["infopages_admin_menu"]."</a></li>
 	<li><a href='./admin.php?categ=opac&sub=search_persopac&section=liste'>".$msg["search_persopac_list_title"]."</a></li>
 	<li><a href='./admin.php?categ=opac&sub=navigopac&action='>".$msg["exemplaire_admin_navigopac"]."</a></li>
-	<li><a href='./admin.php?categ=opac&sub=facette_search_opac&section=facettes'>".$msg["opac_facette"]."</a></li>
+	<li><a href='./admin.php?categ=opac&sub=facettes'>".$msg["opac_facette"]."</a></li>
 	".($pmb_logs_activate?"<li><a href='./admin.php?categ=opac&sub=stat&section=view_list'>".$msg["stat_opac_menu"]."</a></li>":"")."
 	".($opac_visionneuse_allow?"<li><a href='./admin.php?categ=visionneuse'>".$msg["visionneuse_admin_menu"]."</a></li>":"")."
 	".($pmb_opac_view_activate?"<li><a href='./admin.php?categ=opac&sub=opac_view&section=list'>".$msg["opac_view_admin_menu"]."</a></li>":"")."
 	<li><a href='./admin.php?categ=contact_form'>".$msg["admin_opac_contact_form"]."</a></li>
 	<li><a href='./admin.php?categ=opac&sub=maintenance'>".$msg["admin_opac_maintenance"]."</a></li>
 ";
-	if(isset($opac_exploded_search_activate)){
-		$admin_menu_new.="<li><a href='./admin.php?categ=exploded_search'>".$msg['admin_menu_exploded_search']."</a></li>";
+	if($opac_search_universes_activate){
+		$admin_menu_new.="<li><a href='./admin.php?categ=search_universes'>".$msg['admin_menu_search_universes']."</a></li>";
 	}
 
 $admin_menu_new .="
@@ -348,6 +363,11 @@ $admin_menu_empr .= "
 			$msg[parametres_perso_lec_lien]
 		</a>
 	</span>
+	<span".ongletSelect("categ=empr&sub=renewal_form").">
+		<a title='".$msg['empr_renewal_form']."' href='./admin.php?categ=empr&sub=renewal_form&action='>
+			".$msg['empr_renewal_form']."
+		</a>
+	</span>
 </div>";
 
 // $admin_menu_users : menu Utilisateurs
@@ -488,7 +508,14 @@ $admin_menu_misc = "
 			$msg[32]
 		</a>
 	</span>
-	<span".ongletSelect("categ=param").">
+	".($PMBuserid == 1 ? "
+		<span".ongletSelect("categ=misc&sub=files").">
+			<a title='".$msg['files']."' href='./admin.php?categ=misc&sub=files&action='>
+				".$msg['files']."
+			</a>
+		</span>" : 
+	""
+	)."<span".ongletSelect("categ=param").">
 		<a title='$msg[1600]' href='./admin.php?categ=param&action='>
 			$msg[1600]
 		</a>
@@ -592,6 +619,11 @@ $admin_menu_finance.="
 	<span".ongletSelect("categ=finance&sub=transactype").">
 		<a title='".$msg["transaction_admin"]."' href='./admin.php?categ=finance&sub=transactype'>
 			".$msg["transaction_admin"]."
+		</a>
+	</span>	
+    <span".ongletSelect("categ=finance&sub=transaction_payment_method").">
+		<a title='".$msg["transaction_payment_method_admin"]."' href='./admin.php?categ=finance&sub=transaction_payment_method'>
+			".$msg["transaction_payment_method_admin"]."
 		</a>
 	</span>";
 
@@ -1899,7 +1931,7 @@ $admin_onglet_form = "
 
 // $admin_notice_usage_form : template form droit d'usage notice
 $admin_notice_usage_form = "
-<form class='form-$current_module' name=notice_usageform method='post' action=\"./admin.php?categ=notices&sub=notice_usage&action=update&id_usage=!!id_usage!!\">
+<form class='form-$current_module' id='notice_usageform' name='notice_usageform' method='post' action=\"./admin.php?categ=notices&sub=notice_usage&action=update&id_usage=!!id_usage!!\">
 <h3><span onclick='menuHide(this,event)'>!!form_title!!</span></h3>
 <!--    Contenu du form    -->
 <div class='form-contenu'>
@@ -1907,7 +1939,7 @@ $admin_notice_usage_form = "
 		<label class='etiquette' >".$msg['notice_usage_libelle']."</label>
 	</div>
 	<div class='row'>
-		<input type=text name='usage_libelle' value='!!usage_libelle!!' class='saisie-50em' />
+		<input type=text id='usage_libelle' name='usage_libelle' value='!!usage_libelle!!' class='saisie-50em' data-translation-fieldname='usage_libelle' />
 	</div>
 </div>
 <!-- Boutons -->
@@ -2354,31 +2386,35 @@ $admin_proc_form = "
 	</div>
 	<div class='row'>
 		<label class='etiquette' for='form_code'>$msg[706]</label>
-		</div>
+	</div>
 	<div class='row'>
 		<textarea cols='80' rows='8' name='f_proc_code'>!!code!!</textarea>
-		</div>
+	</div>
 	<div class='row'>
 		<label class='etiquette' for='form_comment'>$msg[707]</label>
-		</div>
+	</div>
 	<div class='row'>
 		<input type='text' name='f_proc_comment' value='!!comment!!' maxlength='255' class='saisie-50em' />
-		</div>
+	</div>
 	<div class='row'>
 		<label class='etiquette' for='form_notice_tpl'>".$msg['notice_tpl_notice_id']."</label>
-		</div>
+	</div>
 	<div class='row'>
 		!!notice_tpl!!
-		</div>
+	</div>
+	<div class='row'>
+		<label class='etiquette' for='autorisations_all'>".$msg["procs_autorisations_all"]."</label>
+		<input type='checkbox' id='autorisations_all' name='autorisations_all' value='1' !!autorisations_all!! />
+	</div>
 	<div class='row'>
 		<label class='etiquette' for='form_comment'>$msg[procs_autorisations]</label>
 		<input type='button' class='bouton_small align_middle' value='".$msg['tout_cocher_checkbox']."' onclick='check_checkbox(document.getElementById(\"auto_id_list\").value,1);'>
 		<input type='button' class='bouton_small align_middle' value='".$msg['tout_decocher_checkbox']."' onclick='check_checkbox(document.getElementById(\"auto_id_list\").value,0);'>
-		</div>
+	</div>
 	<div class='row'>
 		!!autorisations_users!!
-		</div>
 	</div>
+</div>
 <!-- Boutons -->
 <div class='row'>
 	<div class='left'>
@@ -2658,6 +2694,7 @@ $admin_calendrier_form .= "</span></h3>
 	<input type='hidden' name='loc' value='!!book_location_id!!'  />
 	<input class='bouton' type='submit' value=' $msg[calendrier_ouvrir] ' onClick=\"this.form.faire.value='ouvrir'\" />&nbsp;
 	<input class='bouton' type='submit' value=' $msg[calendrier_fermer] ' onClick=\"this.form.faire.value='fermer'\" />&nbsp;
+	<input class='bouton' type='submit' value=' $msg[calendrier_initialization] ' onClick=\"this.form.faire.value='initialization'\" />&nbsp;
 	<input type='hidden' name='faire' value='' />
 	</div>
 </form>
@@ -3143,30 +3180,6 @@ $admin_menu_opac_views.= "
 </div>
 ";
 
-$admin_menu_facettes="
-<div class='hmenu'>
-	<span".ongletSelect("categ=opac&sub=facette_search_opac&section=facettes").">
-		<a title='$msg[facettes_admin_menu_facettes]' href='./admin.php?categ=opac&sub=facette_search_opac&section=facettes'>
-			$msg[facettes_admin_menu_facettes]
-		</a>
-	</span>		
-	<span".ongletSelect("categ=opac&sub=facette_search_opac&section=facettes_external").">
-		<a title='$msg[facettes_admin_menu_facettes_external]' href='./admin.php?categ=opac&sub=facette_search_opac&section=facettes_external'>
-			$msg[facettes_admin_menu_facettes_external]
-		</a>
-	</span>";
-if($opac_compare_notice_active){
-	$admin_menu_facettes.= "
-	<span".ongletSelect("categ=opac&sub=facette_search_opac&section=comparateur").">
-		<a title='$msg[facettes_admin_menu_compare]' href='./admin.php?categ=opac&sub=facette_search_opac&section=comparateur'>
-			$msg[facettes_admin_menu_compare]
-		</a>
-	</span>";
-}	
-$admin_menu_facettes.= "	
-</div>
-";
-
 $admin_menu_cms_editorial = "
 <h1>".$msg['editorial_content']." <span>> !!menu_sous_rub!!</span></h1>
 <div class='hmenu'>
@@ -3294,7 +3307,11 @@ $admin_docnum_statut_form = "
 		<input type=checkbox name=form_download_opac_abon value='1' !!checkbox_download_opac_abon!! class='checkbox' />
 	</div>
 	<div class='row'>&nbsp;</div>
-	<div class='row'></div>
+	<div class='row'>
+		<label class='etiquette' for='form_thumbnail_visible_opac_override'>".$msg["docnum_statut_thumbnail_visible_opac_override"]."</label>
+		<input type=checkbox name='form_thumbnail_visible_opac_override' value='1' !!checkbox_thumbnail_visible_opac_override!! class='checkbox' />
+	</div>
+	<div class='row'>&nbsp;</div>
 </div>
 <!-- Boutons -->
 <div class='row'>
@@ -3389,16 +3406,90 @@ $admin_menu_contact_form = "
 </div>";
 
 
-// $admin_menu_exploded_search ="
-// <h1>".$msg["admin_menu_exploded_search"]."</h1>
-// <div class=\"hmenu\">
-// 	<span".ongletSelect("categ=exploded_search&sub=universe").">
-// 		<a title='".$msg["admin_exploded_search_universe"]."' href='./admin.php?categ=exploded_search&sub=universe'>
-// 			".$msg["admin_exploded_search_universe"]."
-// 		</a>
-// 	</span>
-// </div>";
-		
+$admin_menu_search_universes ="
+<h1>".$msg["admin_menu_search_universes"]."</h1>
+<div class=\"hmenu\">
+	<span".ongletSelect("categ=search_universes&sub=universe").">
+		<a title='".$msg["admin_search_universe"]."' href='./admin.php?categ=search_universes&sub=universe'>
+			".$msg["admin_search_universe"]."
+		</a>
+	</span>
+</div>";
 
-?>
+$admin_menu_pnb = "
+<h1>".$msg["admin_menu_pnb"]." <span>> !!menu_sous_rub!!</span></h1>
+<div class='hmenu'>
+	<span".ongletSelect("categ=pnb&sub=param").">
+		<a title='".$msg["admin_menu_pnb_param"]."' href='./admin.php?categ=pnb&sub=param&action='>
+			".$msg["admin_menu_pnb_param"]."
+		</a>
+	</span>			
+	<span".ongletSelect("categ=pnb&sub=quotas_simultaneous_loans").">
+		<a title='" . $msg["admin_menu_pnb_quotas_simultaneous_loans"] . "' href='./admin.php?categ=pnb&sub=quotas_simultaneous_loans&action='>
+			" . $msg["admin_menu_pnb_quotas_simultaneous_loans"] . "
+		</a>
+	</span>		
+	<span".ongletSelect("categ=pnb&sub=quotas_prolongation").">
+		<a title='" . $msg["admin_menu_pnb_quotas_prolongation"] . "' href='./admin.php?categ=pnb&sub=quotas_prolongation&action='>
+			" . $msg["admin_menu_pnb_quotas_prolongation"] . "
+		</a>
+	</span>	
+	<span".ongletSelect("categ=pnb&sub=drm_parameters").">
+		<a title='" . $msg["admin_menu_pnb_drm_parameters"] . "' href='./admin.php?categ=pnb&sub=drm_parameters&action='>
+			" . $msg["admin_menu_pnb_drm_parameters"] . "
+		</a>
+	</span>
+</div>
+";
 
+$admin_vignette_menu ="
+<h1>".$msg["admin_vignette_menu"]."</h1>
+<div class=\"hmenu\">
+	<span".ongletSelect("categ=vignette&sub=record").">
+		<a title='$msg[admin_vignette_menu_record]' href='./admin.php?categ=vignette&sub=record&action='>
+			$msg[admin_vignette_menu_record]
+		</a>
+	</span>
+	<div style='display:none'><!--    TO DO    -->
+    	<span".ongletSelect("categ=vignette&sub=author").">
+    		<a title='$msg[admin_vignette_menu_author]' href='./admin.php?categ=vignette&sub=author&action='>
+    			$msg[admin_vignette_menu_author]
+    		</a>
+    	</span>
+    	<span".ongletSelect("categ=vignette&sub=categ").">
+    		<a title='$msg[admin_vignette_menu_categ]' href='./admin.php?categ=vignette&sub=categ&action='>
+    			$msg[admin_vignette_menu_categ]
+    		</a>
+    	</span>
+    	<span".ongletSelect("categ=vignette&sub=publisher").">
+    		<a title='$msg[admin_vignette_menu_publisher]' href='./admin.php?categ=vignette&sub=publisher&action='>
+    			$msg[admin_vignette_menu_publisher]
+    		</a>
+    	</span>
+    	<span".ongletSelect("categ=vignette&sub=collection").">
+    		<a title='$msg[admin_vignette_menu_collection]' href='./admin.php?categ=vignette&sub=collection&action='>
+    			$msg[admin_vignette_menu_collection]
+    		</a>
+    	</span>
+    	<span".ongletSelect("categ=vignette&sub=subcollection").">
+    		<a title='$msg[admin_vignette_menu_subcollection]' href='./admin.php?categ=vignette&sub=subcollection&action='>
+    			$msg[admin_vignette_menu_subcollection]
+    		</a>
+    	</span>
+    	<span".ongletSelect("categ=vignette&sub=serie").">
+    		<a title='$msg[admin_vignette_menu_serie]' href='./admin.php?categ=vignette&sub=serie&action='>
+    			$msg[admin_vignette_menu_serie]
+    		</a>
+    	</span>
+    	<span".ongletSelect("categ=vignette&sub=tu").">
+    		<a title='$msg[admin_vignette_menu_tu]' href='./admin.php?categ=vignette&sub=tu&action='>
+    			$msg[admin_vignette_menu_tu]
+    		</a>
+    	</span>
+    	<span".ongletSelect("categ=vignette&sub=indexint").">
+    		<a title='$msg[admin_vignette_menu_indexint]' href='./admin.php?categ=vignette&sub=indexint&action='>
+    			$msg[admin_vignette_menu_indexint]
+    		</a>
+    	</span>
+	</div>
+</div>";
