@@ -11,10 +11,9 @@ if(preg_match('/db_param\.inc\.php/', $_SERVER['REQUEST_URI'])) {
 }
 
 // inclure ici les tableaux des bases de données accessibles
-$_tableau_databases[0]="cheuvreux" ;
-$_libelle_databases[0]="cheuvreux" ;
-$_tableau_databases[1]="pam" ;
-$_libelle_databases[1]="pam" ;
+
+$_tableau_databases[0]="pam" ;
+$_libelle_databases[0]="pam" ;
 
 // pour multi-bases
 if (isset($database)) {
@@ -36,19 +35,11 @@ case 'remote':	// mettre ici les valeurs pour l'accés distant
 	//$time_zone = 'Europe/Paris'; //Pour modifier l'heure PHP
 	//$time_zone_mysql =  "'-00:00'"; //Pour modifier l'heure MySQL
 	break;
-case 'cheuvreux':
-	define('SQL_SERVER', 'localhost');		// nom du serveur
-	define('USER_NAME', 'root');		// nom utilisateur
-	define('USER_PASS', '');		// mot de passe
-	define('DATA_BASE', 'cheuvreux');		// nom base de données
-	define('SQL_TYPE',  'mysql');			// Type de serveur de base de données
-	$charset = 'utf-8';
-	break;
 case 'pam':
 	define('SQL_SERVER', 'localhost');		// nom du serveur
 	define('USER_NAME', 'root');		// nom utilisateur
 	define('USER_PASS', '');		// mot de passe
-	define('DATA_BASE', 'iim_2');		// nom base de données
+	define('DATA_BASE', 'iim');		// nom base de données
 	define('SQL_TYPE',  'mysql');			// Type de serveur de base de données
 	$charset = 'utf-8';
 	break;
