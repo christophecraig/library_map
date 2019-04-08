@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<project name="Localisation d'exemplaire sur un plan" company="" manager="Christophe Craig" phase="" project-start="20190115T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Travaill&#xE9;" description="Un jour de travail normal"/>
+      <day-type id="1" name="Ch&#xF4;m&#xE9;" description="Un jour ch&#xF4;m&#xE9; normal"/>
+      <day-type id="2" name="Utiliser la base" description="Utilise un jour du calendrier de base"/>
+    </day-types>
+    <calendar id="1" name="D&#xE9;faut">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="1">
+          <interval start="0900" end="1230"/>
+          <interval start="1400" end="1730"/>
+        </overridden-day-type>
+        <overridden-day-type id="0">
+          <interval start="0900" end="1230"/>
+          <interval start="1400" end="1730"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+      <calendar id="2" name="Calendrier CC">
+        <default-week mon="2" tue="2" wed="2" thu="2" fri="2" sat="2" sun="2"/>
+        <overridden-day-types/>
+        <days>
+          <day date="20190712" type="day-type" id="1"/>
+          <day date="20190717" type="day-type" id="1"/>
+          <day date="20190619" type="day-type" id="1"/>
+          <day date="20190522" type="day-type" id="1"/>
+          <day date="20190424" type="day-type" id="1"/>
+          <day date="20190125" type="day-type" id="1"/>
+          <day date="20190401" type="day-type" id="1"/>
+          <day date="20190304" type="day-type" id="1"/>
+          <day date="20190204" type="day-type" id="1"/>
+          <day date="20190709" type="day-type" id="1"/>
+          <day date="20190524" type="day-type" id="1"/>
+          <day date="20190719" type="day-type" id="1"/>
+          <day date="20190621" type="day-type" id="1"/>
+          <day date="20190122" type="day-type" id="1"/>
+          <day date="20190426" type="day-type" id="1"/>
+          <day date="20190403" type="day-type" id="1"/>
+          <day date="20190306" type="day-type" id="1"/>
+          <day date="20190206" type="day-type" id="1"/>
+          <day date="20190711" type="day-type" id="1"/>
+          <day date="20190716" type="day-type" id="1"/>
+          <day date="20190618" type="day-type" id="1"/>
+          <day date="20190521" type="day-type" id="1"/>
+          <day date="20190423" type="day-type" id="1"/>
+          <day date="20190124" type="day-type" id="1"/>
+          <day date="20190708" type="day-type" id="1"/>
+          <day date="20190405" type="day-type" id="1"/>
+          <day date="20190308" type="day-type" id="1"/>
+          <day date="20190208" type="day-type" id="1"/>
+          <day date="20190121" type="day-type" id="1"/>
+          <day date="20190718" type="day-type" id="1"/>
+          <day date="20190620" type="day-type" id="1"/>
+          <day date="20190523" type="day-type" id="1"/>
+          <day date="20190425" type="day-type" id="1"/>
+          <day date="20190402" type="day-type" id="1"/>
+          <day date="20190305" type="day-type" id="1"/>
+          <day date="20190205" type="day-type" id="1"/>
+          <day date="20190710" type="day-type" id="1"/>
+          <day date="20190715" type="day-type" id="1"/>
+          <day date="20190617" type="day-type" id="1"/>
+          <day date="20190520" type="day-type" id="1"/>
+          <day date="20190422" type="day-type" id="1"/>
+          <day date="20190123" type="day-type" id="1"/>
+          <day date="20190404" type="day-type" id="1"/>
+          <day date="20190307" type="day-type" id="1"/>
+          <day date="20190207" type="day-type" id="1"/>
+        </days>
+      </calendar>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Collecte des besoins" note="" work="25200" duration="22000" start="20190115T000000Z" end="20190115T163500Z" work-start="20190115T090000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="2" name="R&#xE9;union conception" note="" work="25200" duration="3600" start="20190201T000000Z" end="20190201T100000Z" work-start="20190201T090000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20190201T000000Z"/>
+    </task>
+    <task id="3" name="&#xC9;laboration CDC fonctionnel" note="" work="126000" duration="126000" start="20190201T100000Z" end="20190206T100000Z" work-start="20190201T100000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="4" name="Estimation - Poker Planning" note="" work="39600" duration="8000" start="20190321T000000Z" end="20190321T111140Z" work-start="20190321T090000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20190321T000000Z"/>
+    </task>
+    <task id="5" name="R&#xE9;daction consignes pour dessiner le plan" note="" work="3600" duration="3600" start="20190206T100000Z" end="20190206T110000Z" work-start="20190206T100000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="6" name="D&#xE9;veloppement" note="" work="298800" duration="288000" start="20190408T000000Z" end="20190419T120000Z" work-start="20190408T090000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="7" name="Lancement sprint 1" note="" work="0" duration="0" start="20190408T000000Z" end="20190408T000000Z" work-start="20190408T090000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20190408T000000Z"/>
+      </task>
+      <task id="8" name="Upload du plan" note="" work="18000" duration="18000" start="20190408T000000Z" end="20190408T153000Z" work-start="20190408T090000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="7" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="9" name="Stockage en base du plan" note="" work="18000" duration="18000" start="20190408T153000Z" end="20190409T120000Z" work-start="20190408T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="8" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="10" name="Cr&#xE9;ation d'un arbre avec les zones du plan" note="" work="100800" duration="100800" start="20190409T120000Z" end="20190413T120000Z" work-start="20190409T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="9" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="11" name="Identification des sections, localisations, ou panier sur les formes du plan" note="" work="75600" duration="151200" start="20190409T120000Z" end="20190415T120000Z" work-start="20190409T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="9" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="12" name="Mise en surbrillance des zones du plan et des feuilles de l'arbre associ&#xE9;es" note="" work="10800" duration="10800" start="20190413T120000Z" end="20190413T163000Z" work-start="20190413T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="10" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="13" name="Affichage du plan sur la page de notice &#xE0; l'OPAC" note="" work="50400" duration="100800" start="20190415T120000Z" end="20190419T120000Z" work-start="20190415T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="11" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="14" name="Gestion des interactions avec le plan" note="" work="25200" duration="25200" start="20190413T163000Z" end="20190414T163000Z" work-start="20190413T163000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="12" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="15" name="Pr&#xE9;sentation de la fonctionnalit&#xE9;" note="" work="25200" duration="25200" start="20190419T120000Z" end="20190420T120000Z" work-start="20190419T120000Z" percent-complete="16" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="6" type="FS"/>
+      </predecessors>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources>
+    <resource id="1" name="Christophe Craig" short-name="CC" type="1" units="0" email="ccraig@sigb.net" note="" std-rate="8" calendar="2"/>
+    <resource id="2" name="Thomas Samson" short-name="TS" type="1" units="0" email="" note="" std-rate="30"/>
+    <resource id="3" name="Nicolas Gantier" short-name="NG" type="1" units="0" email="" note="" std-rate="23"/>
+    <resource id="4" name="Alexis Petithomme" short-name="AP" type="1" units="0" email="" note="" std-rate="25"/>
+    <resource id="5" name="Arnaud Renou" short-name="AR" type="1" units="0" email="" note="" std-rate="35"/>
+    <resource id="6" name="Florent T&#xE9;tart" short-name="FT" type="1" units="0" email="" note="" std-rate="60"/>
+    <resource id="7" name="Camille B&#xE9;nard" short-name="CB" type="1" units="0" email="" note="" std-rate="25"/>
+    <resource id="8" name="Bastien Tafforeau" short-name="BT" type="1" units="0" email="" note="" std-rate="20"/>
+  </resources>
+  <allocations>
+    <allocation task-id="5" resource-id="1" units="100"/>
+    <allocation task-id="15" resource-id="1" units="100"/>
+    <allocation task-id="3" resource-id="1" units="100"/>
+    <allocation task-id="14" resource-id="1" units="100"/>
+    <allocation task-id="12" resource-id="1" units="100"/>
+    <allocation task-id="10" resource-id="1" units="50"/>
+    <allocation task-id="9" resource-id="1" units="100"/>
+    <allocation task-id="8" resource-id="1" units="100"/>
+    <allocation task-id="4" resource-id="1" units="100"/>
+    <allocation task-id="2" resource-id="1" units="100"/>
+    <allocation task-id="1" resource-id="1" units="100"/>
+    <allocation task-id="11" resource-id="2" units="50"/>
+    <allocation task-id="4" resource-id="2" units="100"/>
+    <allocation task-id="2" resource-id="2" units="100"/>
+    <allocation task-id="13" resource-id="3" units="50"/>
+    <allocation task-id="4" resource-id="3" units="100"/>
+    <allocation task-id="2" resource-id="3" units="100"/>
+    <allocation task-id="10" resource-id="4" units="50"/>
+    <allocation task-id="4" resource-id="4" units="100"/>
+    <allocation task-id="2" resource-id="4" units="100"/>
+    <allocation task-id="2" resource-id="5" units="100"/>
+    <allocation task-id="2" resource-id="6" units="100"/>
+    <allocation task-id="1" resource-id="7" units="15"/>
+    <allocation task-id="2" resource-id="8" units="100"/>
+    <allocation task-id="4" resource-id="8" units="100"/>
+  </allocations>
+</project>
