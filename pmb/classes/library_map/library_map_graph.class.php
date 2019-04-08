@@ -167,7 +167,6 @@ class library_map_graph {
 	private function highlight_parents($id, $first_type){
 		$rect = new DOMElement('div'); // init
 		$instance = $this->get_element_by_id($id);
-		var_dump($instance->get_type(). ' : ' .$first_type);
 		switch ($first_type) {
 			
 			case 'call_number' :

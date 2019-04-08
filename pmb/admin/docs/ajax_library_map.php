@@ -12,7 +12,7 @@ require_once $class_path.'/library_map/library_map_section.class.php';
 switch ($structure_type) {
 	case 'section':
 		if ($action == 'set') {
-			$sections = library_map_section::save_section_link($graph_id, $pmb_id, $structure_type);
+			$sections = library_map_section::save_section_link(addslashes($graph_id), $pmb_id, addslashes($structure_type));
 		} else {
 			$sections = library_map_section::get_sections_from_pmb_by_loc($parent_id);
 		}// Ne retourne rien tant que les ids sur le plan ne correspondent pas à ceux de la base (tableau vide)

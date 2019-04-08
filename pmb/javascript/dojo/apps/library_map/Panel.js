@@ -82,7 +82,7 @@ define(['dojo/_base/declare',
 								pmb_id: this.selected
 							}
 						}).then(function (data) {
-							console.log(data)
+							console.log(decodeURIComponent(data))
 						})
 					}
 				}

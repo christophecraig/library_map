@@ -21,8 +21,9 @@ echo "
 <div data-dojo-id='libraryMapModel' data-dojo-type='dijit/tree/ObjectStoreModel' data-dojo-props='store: libraryMapStore, query: {treeId: 0}'></div>
 <div data-dojo-id='libraryMapTree' data-dojo-type='apps/library_map/Tree' data-dojo-props='model: libraryMapModel' ></div>
 </div>
-<div data-dojo-id='libraryMapPlan' data-dojo-type='apps/library_map/Panel' data-dojo-props='region:\"center\"' style='height:100%;width:auto;overflow:scroll;'><svg id='svg-map' viewBox='0 0 0 0' width='0' height='0'>
-". $graph->search(5, 4, null, 1, 1) ."</svg>
+<div data-dojo-id='libraryMapPlan' data-dojo-type='apps/library_map/Panel' data-dojo-props='region:\"center\"' style='height:100%;width:auto;overflow:scroll;'><svg id='svg-map' viewBox='0 0 0 0' width='0' height='0'>",
+$graph->search(),
+"</svg>
 </div>
 <script>
 var svg = document.getElementById('svg-map')
@@ -35,7 +36,7 @@ svg.setAttribute('height', coordinates.y2 - coordinates.x);
 </div>
 <div id='modal-vue'>
 <modal :options='options' :structure-type='structureType' :graph-id='graphId' v-if='showModal' @close='showModal = false'>
-</div>";
+</div>"
 
 // Ci-dessous, arbre avec les données de structure de la bib dans PMB
 // echo "
